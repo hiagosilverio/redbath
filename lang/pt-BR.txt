@@ -1,0 +1,6 @@
+WARN_COLOR=Erro: color.bat faltando alertas podem nao emitir cores
+SELECT_OPTION=Digite uma opcao
+INVALID_OPTION=Opcao invalida, limpando..
+LISTING_SCRIPTS=Listando arquivos de script disponiveis
+SCRIPT_NOT_FOUND=Nenhum script foi encontrado
+WARN_SCRIPT_FOLDER_NOT_FOUND=Alerta: Pasta "scripts" nao foi encontrada dentro do diretorio

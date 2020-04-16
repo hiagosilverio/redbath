@@ -1,34 +1,39 @@
-@Echo OFF
+@Echo Off
 setlocal enableextensions 
 setlocal EnableDelayedExpansion
-:inicio
+:start
 cls
+
+:: Call language file and set variables trought it
+
+for /f "delims=" %%x in (lang\pt-BR.txt) do (set "%%x")
 
 if not exist "include\color.bat" (
 echo.
-echo Erro: color.bat faltando alertas podem nao emitir cores
+echo %WARN_COLOR%
 echo.
 )
+
+:: This is where set color.bat path and pass hexadecimal colors
+:: Parameters [hex hexcolor, string messagename] 
 
 set "t1=ping 127.0.0.1 -n 1 >nul" 
 set "info=include\color.bat 9f %*"
 set "sucess=include\color.bat 2f %*"
 set "warn=include\color.bat 4f %*"
 
+:: Menu
 echo  1 - Listar Scripts
-echo. 2 - Opcao 2
-echo. 3 - Opcao 3
-echo  4 - Opcao 4
 echo  0 - SAIR
 
-set /p Comando= Digite uma Opcao : 
+set /p Comando= %SELECT_OPTION%
 if "%Comando%" equ "1" (goto op1)
 if "%Comando%" equ "0" (goto exit)
 
 echo.
-echo Opcao invalida, limpando..
+echo %INVALID_OPTION%
 timeout 2 >nul
-goto:inicio
+goto:start
 
 :op1
 cls
@@ -62,7 +67,7 @@ if "%script%" equ "s" (goto:script) else (
 echo.
 echo Voltando ao menu de opcoes, aguarde..
 timeout 2 >nul
-goto:inicio
+goto:start
 )
 
 :script
@@ -80,7 +85,7 @@ if exist "%scriptName%" (
 
 pause>nul
 
-goto:inicio
+goto:start
 
 :exit
 echo O batch script esta sendo encerrado...
