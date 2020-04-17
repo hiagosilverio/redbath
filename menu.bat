@@ -4,6 +4,8 @@ setlocal EnableDelayedExpansion
 :start
 cls
 
+TITLE = BAT.CC 1.0  [Batch Script Reader]
+
 :: Call language file and set variables trought it
 
 for /f "delims=" %%x in (lang\pt-BR.txt) do (set "%%x")
@@ -17,15 +19,20 @@ echo.
 :: This is where set color.bat path and pass hexadecimal colors
 :: Parameters [hex hexcolor, string messagename] 
 
-set "t1=ping 127.0.0.1 -n 1 >nul" 
+:: This wait hack is for when we need to pause the script to read
+set "wait=ping 127.0.0.1 -n 1 >nul" 
 set "info=include\color.bat 9f %*"
 set "sucess=include\color.bat 2f %*"
 set "warn=include\color.bat 4f %*"
 
 :: Menu
+:: There we define two options to select when someone select 1 or 0
+:: We go to the option
+call %info% "---------  Menu ---------" 
+echo.
 echo  1 - Listar Scripts
 echo  0 - SAIR
-
+echo.
 set /p Comando= %SELECT_OPTION%
 if "%Comando%" equ "1" (goto op1)
 if "%Comando%" equ "0" (goto exit)
@@ -44,28 +51,32 @@ if exist "scripts" (
   if exist "scripts\*.bat" (
     dir /b /a-d scripts\*.bat | findstr /e .bat | more
   ) else (
-    echo Nenhum script foi encontrado
+    call %info% "Nenhum script foi encontrado"
+    %wait%
+    echo.
+    set /p scriptName=Deseja criar um script de exemplo?
+    goto :script-build
   )
 ) else (
   call %warn% "Alerta: Pasta "scripts" nao foi encontrada dentro do diretorio"
-  %t1% 
+  %wait% 
   call %info% "Criando pasta scripts.."
-  %t1%
+  %wait%
   md scripts
-  %t1%
+  %wait%
+:script-build
   call %info% "Inserindo arquivo de teste.."
-  %t1%
+  %wait%
   echo echo batcc executado com sucesso >> scripts\helloWorld.bat 
   if %errorlevel% NEQ 0 ( Echo Erro: Falha ao criar helloWorld   )
-  %t1%
+  %wait%
   call scripts\helloWorld.bat
 )
 echo.
-pause
-set /p script= Deseja rodar algum script? (S/N):
+set /p script= Deseja rodar algum script? (s/n) [Somente minusculas]:
 if "%script%" equ "s" (goto:script) else (
 echo.
-echo Voltando ao menu de opcoes, aguarde..
+echo Opcao negada, voltando ao menu de opcoes, aguarde..
 timeout 2 >nul
 goto:start
 )
@@ -73,8 +84,14 @@ goto:start
 :script
 set /p scriptName=Digite o nome do script a ser executado:
 
-if exist "%scriptName%" (
-    echo "Arquivo existe"
+if exist "scripts\%scriptName%.bat" (
+    echo.
+    echo O Arquivo foi encontrado..
+    %wait%
+    call %info% "Para encerrar o script digite CRTL+C"
+    echo Rodando script..
+    timeout 3 >nul
+    call "scripts\%scriptName%.bat" | more
 ) else (
     echo.
     call %warn% "Alerta: informacao invalida ou mal informada: %scriptName%"
