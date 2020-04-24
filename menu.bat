@@ -73,16 +73,8 @@ if exist "scripts" (
   call scripts\helloWorld.bat
 )
 echo.
-set /p script= Deseja rodar algum script? (s/n) [Somente minusculas]:
-if "%script%" equ "s" (goto:script) else (
-echo.
-echo Opcao negada, voltando ao menu de opcoes, aguarde..
-timeout 2 >nul
-goto:start
-)
-
 :script
-set /p scriptName=Digite o nome do script a ser executado:
+set /p scriptName=Digite o nome do script a ser executado: 
 
 if exist "scripts\%scriptName%.bat" (
     echo.
@@ -91,7 +83,14 @@ if exist "scripts\%scriptName%.bat" (
     call %info% "Para encerrar o script digite CRTL+C"
     echo Rodando script..
     timeout 3 >nul
-    call "scripts\%scriptName%.bat" | more
+    echo.
+    call "scripts\%scriptName%.bat" 
+    echo.
+    echo Batch script finalizado com sucesso!
+    echo.
+    echo Voltando para o menu de scripts..
+    timeout 6 >nul
+    goto:op1
 ) else (
     echo.
     call %warn% "Alerta: informacao invalida ou mal informada: %scriptName%"
