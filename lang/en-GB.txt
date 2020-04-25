@@ -1,3 +1,0 @@
-@echo off
-
-SET WARN_COLOR = Erro: color.bat faltando alertas podem nao emitir cores

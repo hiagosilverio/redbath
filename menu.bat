@@ -8,7 +8,7 @@ TITLE = Redbath - Batch Script Reader
 
 :: Call language file and set variables trought it
 
-for /f "delims=" %%x in (lang\pt-BR.txt) do (set "%%x")
+for /f "delims=" %%x in (lang\en-US.txt) do (set "%%x")
 
 if not exist "include\color.bat" (
 echo.
