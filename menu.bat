@@ -29,6 +29,13 @@ set "warn=include\color.bat 4f %*"
 :: There we define two options to select when someone select 1 or 0
 :: We go to the option
 call %info% "---------  Menu ---------" 
+call %warn% "Alert: Some scripts may contain dangerous activity"
+call %warn% "please verify its content before apply"
+echo.
+call %warn% "Alert: Do not run any script without bat knowledge," 
+call %warn% "this software is in development version"
+call %warn% "we not have any responsability for any damage"
+call %warn% "caused by third scripts, take caution"
 echo.
 echo  1 - Listar Scripts
 echo  0 - SAIR
