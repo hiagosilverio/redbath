@@ -3,4 +3,4 @@ SELECT_OPTION=Select an option:
 INVALID_OPTION=Invalid option, cleaning..
 LISTING_SCRIPTS=Listing script files avaliable
 SCRIPT_NOT_FOUND=No scripts found
-WARN_SCRIPT_FOLDER_NOT_FOUND=Alerta: Scripts folder not found inside the directory
+WARN_SCRIPT_FOLDER_NOT_FOUND=Alert: Scripts folder not found inside the directory
