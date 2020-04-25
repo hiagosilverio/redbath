@@ -30,7 +30,8 @@ set "warn=include\color.bat 4f %*"
 :: We go to the option
 call %info% "---------  Menu ---------" 
 call %warn% "Alert: Some scripts may contain dangerous activity"
-call %warn% "please verify its content on scripts folder before apply"
+call %warn% "it may could cause harmfull changes,"
+call %warn% "please verify its content on scripts folder before run"
 echo.
 call %warn% "Alert: Do not run any script without bat knowledge," 
 call %warn% "this software is in development version"
