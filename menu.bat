@@ -38,8 +38,8 @@ echo.
 call %warn% "Alert: We not have any responsability for any damage"
 call %warn% "caused by third scripts, take caution"
 echo.
-echo  1 - Listar Scripts
-echo  0 - SAIR
+echo  1 - List scripts
+echo  0 - Exit
 echo.
 set /p Comando= %SELECT_OPTION%
 if "%Comando%" equ "1" (goto op1)
@@ -53,56 +53,56 @@ goto:start
 :op1
 cls
 echo.
-echo Listando arquivos de script disponiveis
+echo Listing script files...
 echo.
 if exist "scripts" (
   if exist "scripts\*.bat" (
     dir /b /a-d scripts\*.bat | findstr /e .bat | more
   ) else (
-    call %info% "Nenhum script foi encontrado"
+    call %info% "Script not found"
     %wait%
     echo.
-    set /p scriptName=Deseja criar um script de exemplo?
+    set /p scriptName=Do you want to create an example script?
     goto :script-build
   )
 ) else (
-  call %warn% "Alerta: Pasta "scripts" nao foi encontrada dentro do diretorio"
+  call %warn% "Alert: Scripts folder wasn't found in main directory"
   %wait% 
-  call %info% "Criando pasta scripts.."
+  call %info% "Creating scripts folder..."
   %wait%
   md scripts
   %wait%
 :script-build
-  call %info% "Inserindo arquivo de teste.."
+  call %info% "Inserting script test file.."
   %wait%
-  echo echo batcc executado com sucesso >> scripts\helloWorld.bat 
-  if %errorlevel% NEQ 0 ( Echo Erro: Falha ao criar helloWorld   )
+  echo echo batch successfuly executed >> scripts\helloWorld.bat 
+  if %errorlevel% NEQ 0 ( Echo Error: Fail on create helloWorld   )
   %wait%
   call scripts\helloWorld.bat
 )
 echo.
 :script
-set /p scriptName=Digite o nome do script a ser executado: 
+set /p scriptName=Type the script name: 
 
 if exist "scripts\%scriptName%.bat" (
     echo.
-    echo O Arquivo foi encontrado..
+    echo The file was found..
     %wait%
-    call %info% "Para encerrar o script digite CRTL+C"
-    echo Rodando script..
+    call %info% " To stop this bat processing type CRTL+C"
+    echo Running script..
     timeout 3 >nul
     echo.
     call "scripts\%scriptName%.bat" 
     echo.
-    echo Batch script finalizado com sucesso!
+    echo Batch script was finished sucessfuly!
     echo.
-    echo Voltando para o menu de scripts..
+    echo Backing to scripts menu..
     timeout 6 >nul
     goto:op1
 ) else (
     echo.
-    call %warn% "Alerta: informacao invalida ou mal informada: %scriptName%"
-    echo Redirecionando.. para a listagem de arquivos
+    call %warn% "Alert: Invalid info or bad typing: %scriptName%"
+    echo Redirecting to the script listing.. 
     timeout 6 >nul
     goto:op1
 )
@@ -112,6 +112,6 @@ pause>nul
 goto:start
 
 :exit
-echo O batch script esta sendo encerrado...
+echo The batch script is being closed...
 timeout 3 >nul
 
