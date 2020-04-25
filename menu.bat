@@ -59,7 +59,7 @@ if exist "scripts" (
   if exist "scripts\*.bat" (
     dir /b /a-d scripts\*.bat | findstr /e .bat | more
   ) else (
-    call %info% "Script not found"
+    call %info% "Empty script folder, no script file found"
     %wait%
     echo.
     set /p scriptName=Do you want to create an example script?
@@ -76,7 +76,7 @@ if exist "scripts" (
   call %info% "Inserting script test file.."
   %wait%
   echo echo batch successfuly executed >> scripts\helloWorld.bat 
-  if %errorlevel% NEQ 0 ( Echo Error: Fail on create helloWorld   )
+  if %errorlevel% NEQ 0 ( Echo Error: Unknown error on create helloWorld   )
   %wait%
   call scripts\helloWorld.bat
 )
@@ -88,13 +88,13 @@ if exist "scripts\%scriptName%.bat" (
     echo.
     echo The file was found..
     %wait%
-    call %info% " To stop this bat processing type CRTL+C"
+    call %info% "To stop this bat processing type CRTL+C"
     echo Running script..
     timeout 3 >nul
     echo.
     call "scripts\%scriptName%.bat" 
     echo.
-    echo Batch script was finished sucessfuly!
+    echo Batch script was finished sucessfully!
     echo.
     echo Backing to scripts menu..
     timeout 6 >nul
