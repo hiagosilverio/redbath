@@ -36,7 +36,7 @@ echo.
 call %warn% "Alert: Do not run any script without bat knowledge," 
 call %warn% "this software is in development version"
 echo.
-call %warn% "Alert: We not have any responsability for any damage"
+call %warn% "Alert: This program not have any responsability for any damage"
 call %warn% "caused by third scripts, take caution"
 echo.
 echo  1 - List scripts
