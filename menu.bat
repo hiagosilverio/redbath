@@ -4,7 +4,7 @@ setlocal EnableDelayedExpansion
 :start
 cls
 
-TITLE = Redbath - Batch Script Reader
+TITLE = Redbath - Batch Script Reader v0.01
 
 :: Call language file and set variables trought it
 
