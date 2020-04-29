@@ -4,12 +4,16 @@ setlocal EnableDelayedExpansion
 :start
 cls
 
+:: name=Redbath
+:: description=Batch Script Reader
+:: version=0.0.1
+
 TITLE = Redbath - Batch Script Reader v0.01
 
 :: Call language file and set variables trought it
-
 for /f "delims=" %%x in (lang\en-US.txt) do (set "%%x")
 
+:: Warn if color.bat cannot be read or not exist
 if not exist "include\color.bat" (
 echo.
 echo %WARN_COLOR%
@@ -24,6 +28,15 @@ set "wait=ping 127.0.0.1 -n 1 >nul"
 set "info=include\color.bat 0B %*"
 set "sucess=include\color.bat 0A %*"
 set "warn=include\color.bat 0C %*"
+
+:: Check updates...
+echo Checking internet connection...
+ping www.google.nl -n 1 -w 1000>nul
+if errorlevel 1 (echo No internet can't verify update.. skiping) else (
+  echo Connected to the internet..
+  echo.
+)
+
 
 :: Menu
 :: There we define two options to select when someone select 1 or 0
