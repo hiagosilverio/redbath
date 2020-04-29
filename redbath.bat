@@ -23,7 +23,9 @@ echo.
 :: Parameters [hex hexcolor, string messagename] 
 
 :: This wait hack is for when we need to pause the script to read
-set "wait=ping 127.0.0.1 -n 1 >nul" 
+set "wait=ping 127.0.0.1 -n 1 >nul"
+ 
+:: Included colors for info, sucess and warn
 set "info=include\color.bat 0B %*"
 set "sucess=include\color.bat 0A %*"
 set "warn=include\color.bat 0C %*"
@@ -43,7 +45,7 @@ if errorlevel 1 (echo No internet can't verify update.. skiping) else (
 call %info% "========[ REDBATH v0.01 ]========"
 call %info% "------------  Menu --------------" 
 echo.
-call %info% "Set in your prompt command consolas 16px font to better experience.."
+echo Set in your prompt command consolas 16px font to better experience..
 echo.
 call %warn% "Alert: Some scripts may contain dangerous activity"
 call %warn% "it may could cause harmfull changes,"
