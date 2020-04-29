@@ -1,0 +1,1 @@
+Do not include custom scripts file into scripts folder.. on update files will be erased
