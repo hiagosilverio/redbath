@@ -43,6 +43,8 @@ if errorlevel 1 (echo No internet can't verify update.. skiping) else (
 call %info% "========[ REDBATH v0.01 ]========"
 call %info% "------------  Menu --------------" 
 echo.
+call %info% "Set in your prompt command consolas 16px font to better experience.."
+echo.
 call %warn% "Alert: Some scripts may contain dangerous activity"
 call %warn% "it may could cause harmfull changes,"
 call %warn% "please verify its content on scripts folder before run"
@@ -59,6 +61,8 @@ echo.
 set /p Comando= %SELECT_OPTION%
 if "%Comando%" equ "1" (goto op1)
 if "%Comando%" equ "0" (goto exit)
+
+:: Define a config file to disable colors..
 
 echo.
 echo %INVALID_OPTION%
