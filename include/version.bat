@@ -12,4 +12,5 @@ for /f "tokens=2 delims==" %%# in (' type %tempFile%^|find /i "version"') do ech
 :: TYPE %tempFile%
 DEL %tempFile%
 
+:: Need to test condition to verify local version and remote version
 pause
