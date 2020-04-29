@@ -31,6 +31,7 @@ set "sucess=include\color.bat 0A %*"
 set "warn=include\color.bat 0C %*"
 
 :: Check updates...
+:: Change it to gihub server..
 echo Checking internet connection...
 ping www.google.nl -n 1 -w 1000>nul
 if errorlevel 1 (echo No internet can't verify update.. skiping) else (
