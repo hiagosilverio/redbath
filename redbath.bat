@@ -8,7 +8,6 @@ cls
 :: description=Batch Script Reader
 :: version=0.0.1
 
-TITLE = Redbath - Batch Script Reader v0.01
 
 :: Call language file and set variables trought it
 for /f "delims=" %%x in (lang\en-US.txt) do (set "%%x")
@@ -41,7 +40,8 @@ if errorlevel 1 (echo No internet can't verify update.. skiping) else (
 :: Menu
 :: There we define two options to select when someone select 1 or 0
 :: We go to the option
-call %info% "---------  Menu ---------" 
+call %info% "========[ REDBATH v0.01 ]========"
+call %info% "------------  Menu --------------" 
 echo.
 call %warn% "Alert: Some scripts may contain dangerous activity"
 call %warn% "it may could cause harmfull changes,"
