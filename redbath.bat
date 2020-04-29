@@ -50,7 +50,8 @@ call %warn% "it may could cause harmfull changes,"
 call %warn% "please verify its content on scripts folder before run"
 echo.
 call %warn% "Alert: Do not run any script without batch knowledge," 
-call %warn% "this software is in development version"
+call %warn% "this software is in development version,"
+call %warn% "it supports windows 8 and above"
 echo.
 call %warn% "Alert: This program not have any responsability for any damage"
 call %warn% "caused by third scripts, take caution"
@@ -66,7 +67,7 @@ if "%Comando%" equ "0" (goto exit)
 
 echo.
 echo %INVALID_OPTION%
-timeout 2 >nul
+timeout 1 >nul
 goto:start
 
 :op1
