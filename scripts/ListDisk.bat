@@ -13,6 +13,5 @@ echo -------------------
 ::format fs=fat32
 ::assign
 ::exit 1
-wmic partition where BootPartition=true get DeviceID,Size
-
+wmic logicaldisk get name, filesystem, description, freespace, size
 pause

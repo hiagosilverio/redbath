@@ -21,14 +21,15 @@ echo.
 
 :: This wait hack is for when we need to pause the script to read
 set "wait=ping 127.0.0.1 -n 1 >nul" 
-set "info=include\color.bat 9f %*"
-set "sucess=include\color.bat 2f %*"
-set "warn=include\color.bat 4f %*"
+set "info=include\color.bat 0B %*"
+set "sucess=include\color.bat 0A %*"
+set "warn=include\color.bat 0C %*"
 
 :: Menu
 :: There we define two options to select when someone select 1 or 0
 :: We go to the option
 call %info% "---------  Menu ---------" 
+echo.
 call %warn% "Alert: Some scripts may contain dangerous activity"
 call %warn% "it may could cause harmfull changes,"
 call %warn% "please verify its content on scripts folder before run"
