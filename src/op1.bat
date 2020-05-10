@@ -11,7 +11,7 @@ if not %1 == "op1" ( exit /b)
     echo.
 
     : Call ListScripts function
-    call :ListScripts tesx
+    call :ListScripts 
 
     : Necessary to avoid loop
     exit /b 0

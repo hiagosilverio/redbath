@@ -6,7 +6,7 @@ cls
 
 : name=Redbath
 : description=Batch Script Reader
-: version=0.0.1
+: version=0.0.2
 
 : Set language folder 
 set "language=..\lang"
