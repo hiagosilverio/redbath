@@ -1,4 +1,3 @@
 # Ignore custom-scripts folder
 
-custom-scripts/
-!.gitignore
+custom-scripts/*.bat
