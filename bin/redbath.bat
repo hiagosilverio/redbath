@@ -76,7 +76,7 @@ call %warn% "Alert: This program not have any responsability for any damage"
 call %warn% "caused by third scripts, take caution"
 echo.
 echo  1 - List scripts
-echo  2 - List custom scripts
+echo  2 - List custom scripts [Not working]
 echo  0 - Exit
 echo.
 set /p Comando= %SELECT_OPTION%
