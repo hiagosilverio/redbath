@@ -1,4 +1,3 @@
-
 : If not have parameters passing by finish the script
 if not %1 == "op1" ( exit /b)
 
@@ -17,7 +16,9 @@ if not %1 == "op1" ( exit /b)
     : Necessary to avoid loop
     exit /b 0
 
-) | call:main
+: Call main as first function
+) | call:main 
+
 
 : get error and return
 echo %ERRORLEVEL%
