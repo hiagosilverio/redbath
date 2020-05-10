@@ -1,3 +1,4 @@
 @echo off
 
-robocopy D:\ E:\backup /s
+robocopy D:\ E:\backup 
+

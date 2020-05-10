@@ -2,7 +2,7 @@
 if not %1 == "op1" ( exit /b)
 
 : init first function called main
-:: do not call first main like short hand call:main this could cause trouble during process
+: do not call first main like shorthand call:main this could cause trouble during process
 :main (
 
     cls
@@ -36,6 +36,7 @@ pause
             %wait%
             echo.
             set /p question=Do you want to create an example script?
+            : Maybe a yes or not here..
             call :ScriptBuild
         )
     ) else (
