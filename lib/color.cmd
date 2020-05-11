@@ -9,7 +9,7 @@ call :colorPrint %1 %2
 call :colorPrintVar 74 complex /n
 
 call :cleanupColorPrint
-
+echo.
 exit /b
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
