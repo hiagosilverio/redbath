@@ -50,15 +50,15 @@ cls
   set "library=..\lib"
 
   : Set Router
-  set "router=..\src\router.bat"
+  set "router=..\src\router.cmd"
 
   : This is where set color.bat path and pass trought it hexadecimal colors
   : Parameters [hex hexcolor, string messagename] 
   : Colors for info, sucess and warn
 
-  set "info=%library%\color.bat 0B %*"
-  set "sucess=%library%\color.bat 0A %*"
-  set "warn=%library%\color.bat 0C %*"
+  set "info=%library%\color.cmd 0B %*"
+  set "sucess=%library%\color.cmd 0A %*"
+  set "warn=%library%\color.cmd 0C %*"
 
   : Set scripts folder
   set "scripts=..\scripts"
