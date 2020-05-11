@@ -1,6 +1,8 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/323eaa7b39a84234a311d5023650c3a0)](https://www.codacy.com/manual/hiago.silverioest/redbath?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hiagosilverio/redbath&amp;utm_campaign=Badge_Grade)
+
 # redbath 
 Version: 0.0.2 |
 A batch script reader to read batch scripts throught command prompt
 
-# support
+## support
 Windows 8 >
