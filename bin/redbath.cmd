@@ -109,7 +109,7 @@ cls
 :menu (
 
   : Warn if color.bat cannot be read or not exist
-  if not exist "%library%\color.bat" (
+  if not exist "%library%\color.cmd" (
     echo.
     : I'm not sure why is it here or if it's completed, shrug again
     echo %WARN_COLOR%

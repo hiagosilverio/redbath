@@ -5,7 +5,7 @@ setlocal EnableDelayedExpansion
 call :initColorPrint
 
 call :colorPrint %1 %2
-echo(
+
 call :colorPrintVar 74 complex /n
 
 call :cleanupColorPrint
