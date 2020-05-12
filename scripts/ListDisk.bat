@@ -1,6 +1,6 @@
 @Echo off
 
-echo Listando discos...
+echo Listing discs...
 echo -------------------
 ::call diskpart /s formatLinux.bat
 

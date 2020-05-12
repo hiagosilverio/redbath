@@ -53,8 +53,10 @@ pause
         : Command to create scripts
         md %scripts%
         %wait%
+        
         : Calling ScriptBuild function
         call :ScriptBuild
+
         : return to main
         call :main
     )

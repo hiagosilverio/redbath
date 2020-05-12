@@ -66,10 +66,10 @@ setlocal EnableDelayedExpansion
   set "cscripts=..\custom-scripts"
 
   : Call wait to set default wait variable
-  call :wait
+  call :Wait
 
   : Call main to show the choice options
-  call :menu
+  call :Main
 
 : Call constructor itself passing by parameter to answer a call from other file
 : Ex: call ex.bat function value
@@ -96,24 +96,25 @@ setlocal EnableDelayedExpansion
 )
 
 : This wait hack is for when we need to pause the script to read
-:wait (
+:Wait (
 
   : return a variable to the global scope, I dunno why it happens.. shrug
   set "wait=ping 127.0.0.1 -n 1 >nul"
 
-  : and return to constructor (this is to we procedure to continue from construct)
+  : and return to constructor (this is necessary to continue from construct)
   exit /b 0
 )
 
 : Show options to be chossen
-:menu (
+:Main (
+
   : Clean the prompt screen when nenu is being called
   cls
   
   : Warn if color.bat cannot be read or not exist
   if not exist "%library%\color.cmd" (
     echo.
-    : I'm not sure why is it here or if it's completed, shrug again
+    : I'm not sure why is it here or if it's completed
     echo %WARN_COLOR%
     echo.
   )
@@ -152,28 +153,45 @@ setlocal EnableDelayedExpansion
   echo  2 - List custom scripts [Not working]
   echo  0 - Exit
   echo.
-  set /p Comando= %SELECT_OPTION%
-  if "%Comando%" equ "1" (goto op1)
-  if "%Comando%" equ "0" (goto exit)
+  set /p Command= %SELECT_OPTION%
 
-  : Need to define a config file to disable colors..
+  : In this case, else need to be in the same line as if
+  : And batch not supports multiple elses, only one follow by if conditions
+  if "%Command%" == "1" ( call :ListScripts ) 
+  if "%Command%" == "0" ( call :Exit )
 
+  : Is there other clean solution for this? like batch script is so limited in variations
+  : Is better to have an exit condition when not passes trought ifs
+  : Than make a boilerplate to consider a solution itself  
+  
   echo.
   echo %INVALID_OPTION%
   timeout 1 >nul
-  call:menu
 
-  : Need to transform goto into a fake function...
-  :op1
-  call "%source%\op1.cmd"
+  call :Main
 
-  pause>nul
+  : End of menu
+  )
+  
+  : Should define a config file to disable colors.. maybe
 
-  call:menu
+  :ListScripts (
+  
+    : Include listscripts cmd into redbath
+    call "%source%\ListScripts.cmd"
+    
+    call :Main
+    
+    exit /b 0
+  )
 
-  :exit
-  echo The batch script is being closed...
-  timeout 3 >nul
+  :Exit (
+
+    echo The batch script is being closed...
+    timeout 3 >nul
+
+    exit
+  )
 
   echo %ERRORLEVEL%
   pause
