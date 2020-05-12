@@ -66,6 +66,7 @@ pause
         echo The file was found..
         %wait%
         call %info% "To force stop the batch processing press CRTL+C"
+        echo.
         echo Running script..
         timeout 3 >nul
         echo.

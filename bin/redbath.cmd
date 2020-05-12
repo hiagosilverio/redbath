@@ -8,6 +8,8 @@ cls
 : description=Batch Script Reader
 : version=0.1.3
 
+: => Find some batchdoc standards
+
 : Constructor
 :_(
 
@@ -26,9 +28,7 @@ cls
     : return
     exit /b 0
 
-  ) else (
-      echo Error: parameter invalid or empty function
-  )
+  ) 
 
   : Calling language file and setting translate variables trought it, doesn't need a function, guess I
   for /f "delims=" %%x in (%language%\en-US.txt) do (set "%%x")
@@ -39,6 +39,9 @@ cls
   : => stackoverflow/what-does-dp0-mean-and-how-does-it-work
   : %~f0 is like full directory that what point out to here ...redbath.cmd
   set "rd=%~f0"
+
+  : Set menu title
+  set title=REDBATH v0.1.3
 
   : Set language folder 
   set "language=..\lang"
@@ -77,7 +80,7 @@ cls
 ) | call:_ %1
 
 : I will let this unofunctional function to get insight about callbacks here and stuff
-: [Deprecated]
+: [Deprecated 0.0.1]
 :_wait (
 
   : Verify if the parameter %~1 (this is like the first param) is null casting to string
@@ -106,6 +109,7 @@ cls
   exit /b 0
 )
 
+: Show options to be chossen
 :menu (
 
   : Warn if color.bat cannot be read or not exist
@@ -121,7 +125,7 @@ cls
   : Maybe a function to it?
   echo Checking internet connection...
   ping www.google.nl -n 1 -w 1000>nul
-  if errorlevel 1 (echo No internet can't verify update.. skiping) else (
+  if errorlevel 1 (echo Can't verify update.. skiping) else (
     echo Connected to the internet..
     echo.
   )
@@ -130,7 +134,7 @@ cls
   : There we define three options to select when someone select 
   : Like 0,1,2 and that way so on
 
-  call %info% "========[ REDBATH v0.01 ]========"
+  call %info% "========[ %title% ]========"
   call %info% "------------  Menu --------------" 
   echo.
   echo Set in your prompt command consolas 16px font to better experience..
@@ -159,7 +163,7 @@ cls
   echo.
   echo %INVALID_OPTION%
   timeout 1 >nul
-  goto:start
+  call:menu
 
   : Need to transform goto into a fake function...
   :op1
@@ -167,7 +171,7 @@ cls
 
   pause>nul
 
-  goto:start
+  call:menu
 
   :exit
   echo The batch script is being closed...
