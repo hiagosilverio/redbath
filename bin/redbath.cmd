@@ -1,9 +1,6 @@
 @Echo Off
 setlocal enableextensions 
 setlocal EnableDelayedExpansion
-:start
-cls
-
 : name=Redbath
 : description=Batch Script Reader
 : version=0.1.3
@@ -12,7 +9,6 @@ cls
 
 : Constructor
 :_(
-
   : Call a function by parameter
   : if first parameter in call bat isn't null
   if not "%~1" == "" (
@@ -111,7 +107,9 @@ cls
 
 : Show options to be chossen
 :menu (
-
+  : Clean the prompt screen when nenu is being called
+  cls
+  
   : Warn if color.bat cannot be read or not exist
   if not exist "%library%\color.cmd" (
     echo.
