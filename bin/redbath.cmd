@@ -2,20 +2,23 @@
 setlocal enableextensions 
 setlocal EnableDelayedExpansion
 
-@rem title=REDBATH v0.1.5
+@rem title=REDBATH v0.1.6
 @rem description = Batch Script Reader
-@rem version = 0.1.5
+@rem version = 0.1.6
 
 @rem Find some batchdoc standards
 
 @rem  Constructor
 
 :_(
-
+  @rem Prevent Window Close when error occurs
+  @rem https://stackoverflow.com/questions/17118846/how-to-prevent-batch-window-from-closing-when-error-occurs
+  if not defined in_subprocess (cmd /k set in_subprocess=y ^& %0 %*) & exit )
+  
   @rem Set current path temporary
   @rem Need some fix..
   SET PATH=%PATH%;%~f0
-
+  
   @rem Call a function by parameter
   @rem if first parameter in call bat isn't null
   if not "%~1" == "" (
@@ -33,19 +36,24 @@ setlocal EnableDelayedExpansion
 
   ) 
 
-  : Calling language file and setting translate variables trought it, doesn't need a function, guess I
+  @rem Calling language file and setting translate variables trought it, doesn't need a function, guess I
   for /f "delims=" %%x in (%language%\en-US.txt) do (set "%%x")
 
-  :-Constant variables
+  @rem  Config variables
+  @rem  https://stackoverflow.com/questions/25166704/convert-a-string-to-integer-in-a-batch-file
+  @rem  Converting variable into int, maybe a pseudo function to it?
+  set /a "enableOsCheck = 1"
+
+  @rem Constant variables
 
   @rem  Set redbath call alias
   @rem  stackoverflow/what-does-dp0-mean-and-how-does-it-work
   @rem  %~f0 is like full directory that what point out to here ...redbath.cmd
   @rem  Do not include space between equal and %~f0, with double quotes the result is the same, bug related.
   set redb=%~f0&
-
+   
   @rem Set menu title
-  set title=REDBATH v0.1.5
+  set title=REDBATH v0.1.6
 
   @rem Set language folder 
   set "language=..\lang"
@@ -55,9 +63,6 @@ setlocal EnableDelayedExpansion
 
   @rem Set library folder
   set "library=..\lib"
-
-  @rem Set Router
-  set "router=..\src\router.cmd"
 
   @rem Set scripts folder
   @rem Overwrite permissions with [%scripts%]
@@ -70,45 +75,114 @@ setlocal EnableDelayedExpansion
   @rem  This is where set color.bat path and pass trought it hexadecimal colors
   @rem  Parameters [hex hexcolor, string messagename] 
   @rem  Colors for info, sucess and warn
+  
+  @rem Deprecated [0.1.5]
+  @rem Variables were transformed into child pseudo functions
+  @rem Use call Console:Info to display color and message
+  @rem usage: %info% "message"
+  set "info=call %library%\color.cmd 0B %*"
+  set "sucess=call %library%\color.cmd 0A %*"
+  set "warn=call %library%\color.cmd 0C %*"
 
-  set "info=%library%\color.cmd 0B %*"
-  set "sucess=%library%\color.cmd 0A %*"
-  set "warn=%library%\color.cmd 0C %*"
+@rem Call constructor itself passing by parameter to answer a call from other file
+@rem Ex: call ex.bat function value
+) | call:_ %1 
+
+:Main(
+
+  @rem ----- Calling pseudo-functions ---------
+  
+  @rem Call to check the version before proceed
+  call :CheckOsVersion
 
   @rem Call wait to set default wait variable
   call :Wait
 
   @rem Call main to show the choice options
-  call :Main
+  call :Menu
 
-@rem Call constructor itself passing by parameter to answer a call from other file
-@rem Ex: call ex.bat function value
-) | call:_ %1
+  exit /b 0 
+) 
 
+:Console (
 
+  @rem Variables to set some path, they can access variables defined before
+  @rem Do not include space between = and path 
+  @rem message_info = %library%  that way is wrong
+   set "message_info=%library%\color.cmd 0B %*"
+   set "message_sucess=%library%\color.cmd 0A %*"
+   set "message_warn=%library%\color.cmd 0C %*"
+  
+  @rem memo: In the for in the set statement, do not use % to represent the variable as %var%
+  @rem This is to echo the variable's value
+  @rem This for separate the :from pseudo function 
+
+  @rem Acessing tokens passed as function, batch interprets that we have two functions in one calling by itself
+  @rem It doesn't not drop any error, so we use this to split into a child function
+  for /f "tokens=1,2* delims=:" %%0 in ("%0") do (
+
+    @rem If person try to access two or more childs from function
+    @rem I can't determine grandchilds unfortunatelly
+    if defined %%2 (
+      echo Console do not support more than one function by parameter
+      exit /b 0
+    )
+
+    @rem Call first token after : and call first parameter at pseudo function
+    @rem %%1 = First Token, %1 first parameter
+    @rem :PseudoFunction:PseudoChildFunction parameter
+    @rem It doesn't recognize that child function is part of global scope
+    call !:%%1! %1
+      
+    @rem Prevent CreateMessage use the functions after for 
+     exit /b 0
+  )
+  
+  @rem Message, parameter
+  :Info (
+    call %message_info% %1
+    exit /b 0
+  )
+  
+  @rem Message, parameter
+  :Warn (
+    call %message_warn% %1
+    exit /b 0
+  )
+
+  @rem Message variable, parameter
+  :Sucess (
+    call %message_sucess% %1
+    exit /b 0
+  )
+
+  exit /b 0
+)
+
+@rem Function need some fix to pass variable to others scripts
+@rem Under construction maybe deprecated
 :Sets (
 
-    if not "%~1" == "" (
+    if not "%1" == "" (
 
         @rem prevent spaces with double quotes
         @rem set variable as parameter1 and value as parameter2
         @rem No space between = and %~1, %1 
-        set !%~1=%~2!
+        call set !%~1=%~2!
 
         exit /b 0
-
     )
 )
 
 @rem Do not let @get together with @get( the way that works is @get (
-
-:Getas (
+@rem Function need some fix to pass variable to others scripts
+:Gets (
 
     if not "%~1" == "" (
       
       @rem Some kind of Witchcraft here
       @rem !! cast string parameter %~1 to %1% with delayed expansion
-      echo !%1!
+      echo %1
 
       exit /b 0 
 
@@ -116,8 +190,6 @@ setlocal EnableDelayedExpansion
 
 
 )
-
-
 
 @rem I will let this unofunctional function to get insight about callbacks here and stuff
 @rem [Deprecated 0.0.1]
@@ -150,8 +222,7 @@ setlocal EnableDelayedExpansion
 )
 
 @rem Show options to be chossen
-:Main (
-
+:Menu (
   @rem Clean the prompt screen when nenu is being called
   cls
   
@@ -173,25 +244,27 @@ setlocal EnableDelayedExpansion
   @rem There we define three options to select when someone select 
   @rem Like 0,1,2 and that way so on
 
-  call %info% "========[ %title% ]========"
-  call %info% "------------  Menu --------------" 
+  call :Console:Info "========[ %title% ]========"
+  call :Console:Info "------------  Menu --------------" 
   echo.
   echo Set in your prompt command consolas 16px font to better experience..
   echo.
-  call %warn% "Alert: Some scripts may contain dangerous activity"
-  call %warn% "it may could cause harmfull changes,"
-  call %warn% "please verify its content on scripts folder before run"
+
+  call :Console:Warn "Alert Some scripts may contain dangerous activity"
+  call :Console:Warn "it may could cause harmfull changes,"
+  call :Console:Warn "please verify its content on scripts folder before run"
   echo.
-  call %warn% "Alert: Do not run any script without batch knowledge," 
-  call %warn% "this software is in development version,"
-  call %warn% "it supports windows 8 and above"
+  call :Console:Warn "Alert: Do not run any script without batch knowledge," 
+  call :Console:Warn "this software is in development version,"
+  call :Console:Warn "it supports windows 8 and above"
   echo.
-  call %warn% "Alert: This program not have any responsability for any damage"
-  call %warn% "caused by third scripts, take caution"
+  call :Console:Warn "Alert: This program not have any responsability for any damage"
+  call :Console:Warn "caused by third scripts, take caution"
+
   echo.
   echo  1 - List scripts
   echo  2 - List custom scripts
-  echo  0 - Exit
+  echo  3 - Exit
   echo.
   set /p Command= %SELECT_OPTION%
 
@@ -199,7 +272,7 @@ setlocal EnableDelayedExpansion
   @rem And batch not supports multiple elses, only one follow by if conditions
   if "%Command%" == "1" ( call :CallScriptsList ) 
   if "%Command%" == "2" ( call :CallCustomScriptsList ) 
-  if "%Command%" == "0" ( call :Exit )
+  if "%Command%" == "3" ( call :Exit )
 
   @rem Is there other clean solution for this? like batch script is so limited in variations
   @rem Is better to have an exit condition when not passes trought ifs
@@ -209,8 +282,7 @@ setlocal EnableDelayedExpansion
   echo %INVALID_OPTION%
   timeout 1 >nul
 
-  call :Main
-
+  call :Menu
   @rem End of menu
 
   )
@@ -222,8 +294,6 @@ setlocal EnableDelayedExpansion
     @rem Include listscripts cmd into redbath
     call "%source%\ListScripts.cmd"
     
-    call :Main
-    
     exit /b 0
   )
 
@@ -232,9 +302,7 @@ setlocal EnableDelayedExpansion
     @rem Include listscripts cmd into redbath
 
     call "%source%\ListScripts.cmd" %cscripts% 
-    
-    call :Main
-    
+ 
     exit /b 0
     
   )
@@ -249,6 +317,31 @@ setlocal EnableDelayedExpansion
     exit /b 0
   )
 
+ 
+  :CheckOsVersion (
+    
+    @rem 6.1 Windows 7, 6.0 Windows Vista, 6.2 Windows 8, 6.3 Windows 8.1, 10 Windows 10
+    if not "%enableOsCheck%" == "1" (
+      call :Console:Warn "Disabled OsCheck, the software will not run in compatible mode.."
+      call :Console:Info "Errors may can occur during process.."
+      echo Redirecting..
+      timeout 5 >nul
+      call :Menu
+    )
+    
+    for /f "tokens=4-5 delims=. " %%i in ('ver') do set VERSION=%%i.%%j
+    
+    if "%version%" == "6.3" ( echo Initializing..& timeout 1 >nul& call :Menu )
+    if "%version%" == "6.2" (  echo Initializing..& timeout 1 >nul& call :Menu )
+    if "%version%" == "10.0"( echo Initializing..& timeout 1 >nul& call :Menu )
+    
+    echo Sorry, your operacional system seems not compatible with this software
+    echo if you disagree, please disable O.S check
+    echo Press any key to exit..
+    pause >nul
+    exit /b 0
+  )
+
   :Exit (
 
     echo The batch script is being closed...
@@ -259,5 +352,11 @@ setlocal EnableDelayedExpansion
 
   echo %ERRORLEVEL%
   pause
+
+)
+
+@rem Probabily new function
+:CallTimeout(
+  @rem Message, timeout, function
 
 )
