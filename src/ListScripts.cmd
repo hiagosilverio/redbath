@@ -6,7 +6,7 @@ setlocal EnableDelayedExpansion
 if [%redb%] == [] ( exit /b)
 
 @rem  init first function called main
-@rem  do not call first main like shorthand call:main this could cause trouble during process
+@rem  do not call first main like shorthand call:Main this could cause trouble during process
 @rem  Constructor
 
 
@@ -28,12 +28,12 @@ if [%redb%] == [] ( exit /b)
 
     : echo %scripts%
 
-    call :main
+    call :Main
 
 @rem Recieve the variable parameter
 ) | call:_ %1 
 
-:main (
+:Main (
 
     : Overwrite when we declare in batch it means a variable that can recieve two or more values..
     cls
@@ -49,7 +49,6 @@ if [%redb%] == [] ( exit /b)
 
 @rem Call main as first function
 ) 
-
 
 @rem get error and return
 echo %ERRORLEVEL%
@@ -67,7 +66,7 @@ pause
 
         ) else (
             
-            call %info% "Empty script folder, no script file found"
+            %info% "Empty script folder, no script file found"
             %wait%
             echo.
             
@@ -78,15 +77,15 @@ pause
             if "%scriptQuestion%" == "Y" ( 
                 call :ScriptBuild
             ) else (     
-                call :main
+                call :Main
             )
 
         )
     ) else (
 
-        call %warn% "Alert: Scripts folder wasn't found in main directory"
+        %warn% "Alert: Scripts folder wasn't found in main directory"
         %wait% 
-        call %info% "Creating scripts folder..."
+        %info% "Creating scripts folder..."
         %wait%
         @rem Command to create scripts
         md %scripts%
@@ -109,19 +108,24 @@ pause
         %wait%
         call %info% "To force stop the batch processing press CRTL+C"
         echo.
-        call %info% "Please, do not close the window or turn off the computer between disk formatation, copy or move"
-
+        call  %info%"Please, do not close the window or turn off the computer between disk formatation, copy or move"
+        
         echo.
         echo Running script..
         timeout 3 >nul
         echo.
+        If NOT "%scriptName%"=="%scriptName:.bat=%" (
+            call "%scripts%\%scriptName%"
+        ) else (
+            call "%scripts%\%scriptName%.bat"
+        )
         call "%scripts%\%scriptName%.bat"
         echo. 
         echo Batch script was finished sucessfully!
         echo.
         echo Backing to scripts menu..
         timeout 6 >nul
-        call :main 
+        call :Main 
 
     ) else (
 
@@ -129,7 +133,7 @@ pause
         call %warn% "Alert: Invalid info or bad typing: %scriptName%"
         echo Redirecting to the script listing.. 
         timeout 6 >nul
-        call :main
+        call :Main
 
     )
 
@@ -138,7 +142,7 @@ pause
 
 :ScriptBuild (
 
-    call %info% "Inserting script test file.."
+    %info% "Inserting script test file.."
     %wait%
     @rem Inserting text into a file named helloWorld.bat
     echo echo batch successfuly executed >> %scripts%\helloWorld.bat 
