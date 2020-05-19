@@ -250,7 +250,7 @@ setlocal EnableDelayedExpansion
   echo Set in your prompt command consolas 16px font to better experience..
   echo.
 
-  call :Console:Warn "Alert Some scripts may contain dangerous activity"
+  call :Console:Warn "Alert: Some scripts may contain dangerous activity"
   call :Console:Warn "it may could cause harmfull changes,"
   call :Console:Warn "please verify its content on scripts folder before run"
   echo.
