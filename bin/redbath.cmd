@@ -122,7 +122,7 @@ setlocal EnableDelayedExpansion
   for /f "tokens=1,2* delims=:" %%0 in ("%0") do (
 
     @rem If person try to access two or more childs from function
-    @rem I can't determine grandchilds unfortunatelly
+    @rem I can't determine grandchilds unfortunatelly without boilerplate the code and being non-human readable
     if defined %%2 (
       echo Console do not support more than one function by parameter
       exit /b 0
@@ -250,7 +250,7 @@ setlocal EnableDelayedExpansion
   echo Set in your prompt command consolas 16px font to better experience..
   echo.
 
-  call :Console:Warn "Alert: Some scripts may contain dangerous activity"
+  call :Console:Warn "Alert: grandSome scripts may contain dangerous activity"
   call :Console:Warn "it may could cause harmfull changes,"
   call :Console:Warn "please verify its content on scripts folder before run"
   echo.
