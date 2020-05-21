@@ -2,18 +2,19 @@
 setlocal enableextensions 
 setlocal EnableDelayedExpansion
 
-@rem title=REDBATH v0.1.6
-@rem description = Batch Script Reader
-@rem version = 0.1.6
+@rem title=RedBath
+@rem description=Batch Script Reader
+@rem version=0.1.7
 
 @rem Find some batchdoc standards
 
-@rem  Constructor
+@rem Constructor
 
 :_(
-  @rem Prevent Window Close when error occurs
+  @rem Prevent Window Close when error occurs including closing batch script
+  @rem Some kind of witchcraft here /*
   @rem https://stackoverflow.com/questions/17118846/how-to-prevent-batch-window-from-closing-when-error-occurs
-  if not defined in_subprocess (cmd /k set in_subprocess=y ^& %0 %*) & exit )
+  if not defined in_subprocess (cmd /k set in_subprocess=y ^& %0 %*) & exit b/ 0 )
   
   @rem Set current path temporary
   @rem Need some fix..
@@ -36,13 +37,13 @@ setlocal EnableDelayedExpansion
 
   ) 
 
-  @rem Calling language file and setting translate variables trought it, doesn't need a function, guess I
+  @rem Calling language file and setting translate variables through it, doesn't need a function, guess I
   for /f "delims=" %%x in (%language%\en-US.txt) do (set "%%x")
 
-  @rem  Config variables
+  @rem Calling language file and setting config variables through it, doesn't need a function, guess I
+  for /f "delims=" %%x in (..\config.ini) do (set "%%x")
+
   @rem  https://stackoverflow.com/questions/25166704/convert-a-string-to-integer-in-a-batch-file
-  @rem  Converting variable into int, maybe a pseudo function to it?
-  set /a "enableOsCheck = 1"
 
   @rem Constant variables
 
@@ -53,7 +54,7 @@ setlocal EnableDelayedExpansion
   set redb=%~f0&
    
   @rem Set menu title
-  set title=REDBATH v0.1.6
+  set rversion=0.1.7
 
   @rem Set language folder 
   set "language=..\lang"
@@ -72,7 +73,7 @@ setlocal EnableDelayedExpansion
   @rem Set custom scripts folder
   set "cscripts=..\custom-scripts"
 
-  @rem  This is where set color.bat path and pass trought it hexadecimal colors
+  @rem  This is where set color.bat path and pass through it hexadecimal colors
   @rem  Parameters [hex hexcolor, string messagename] 
   @rem  Colors for info, sucess and warn
   
@@ -91,11 +92,14 @@ setlocal EnableDelayedExpansion
 :Main(
 
   @rem ----- Calling pseudo-functions ---------
+
+  @rem Need to change it to gihub server..
+  call :CheckConnection
   
   @rem Call to check the version before proceed
   call :CheckOsVersion
 
-  @rem Call wait to set default wait variable
+  @rem Call factory wait to set default wait variable
   call :Wait
 
   @rem Call main to show the choice options
@@ -174,20 +178,18 @@ setlocal EnableDelayedExpansion
     )
 )
 
-@rem Do not let @get together with @get( the way that works is @get (
+@rem Do not let :get together with :get( the way that works is :get (
 @rem Function need some fix to pass variable to others scripts
 :Gets (
 
     if not "%~1" == "" (
       
-      @rem Some kind of Witchcraft here
-      @rem !! cast string parameter %~1 to %1% with delayed expansion
+      @rem echo the first parameter
       echo %1
 
       exit /b 0 
 
     )  
-
 
 )
 
@@ -214,7 +216,7 @@ setlocal EnableDelayedExpansion
 @rem This wait hack is for when we need to pause the script to read
 :Wait (
 
-  @rem return a variable to the global scope, I dunno why it happens.. shrug
+  @rem return a variable to the global scope, i dunno why it happens.. shrug
   set "wait=timeout 1 >nul"
 
   @rem and return to constructor (this is necessary to continue from construct)
@@ -232,25 +234,21 @@ setlocal EnableDelayedExpansion
     @rem I'm not sure why is it here or if it's completed
     echo %WARN_COLOR%
     echo.
+    pause
+    exit /b 0
   )
 
-  @rem Check updates...
-  @rem Need to change it to gihub server..
-  @rem Maybe a function to it?
-  echo Checking internet connection...
-  call :CheckConnection
- 
   :- Menu
   @rem There we define three options to select when someone select 
   @rem Like 0,1,2 and that way so on
-
-  call :Console:Info "========[ %title% ]========"
-  call :Console:Info "------------  Menu --------------" 
+  call :Console:Warn " R E D B A T H "
+  call :Console:Info " v%rversion%"
+  echo.
+  call :Console:Info "[ Menu ]"
   echo.
   echo Set in your prompt command consolas 16px font to better experience..
   echo.
-
-  call :Console:Warn "Alert: grandSome scripts may contain dangerous activity"
+  call :Console:Warn "Alert: Some scripts may contain dangerous activity"
   call :Console:Warn "it may could cause harmfull changes,"
   call :Console:Warn "please verify its content on scripts folder before run"
   echo.
@@ -262,7 +260,7 @@ setlocal EnableDelayedExpansion
   call :Console:Warn "caused by third scripts, take caution"
 
   echo.
-  echo  1 - List scripts
+  echo  1 - List redbath scripts
   echo  2 - List custom scripts
   echo  3 - Exit
   echo.
@@ -275,12 +273,12 @@ setlocal EnableDelayedExpansion
   if "%Command%" == "3" ( call :Exit )
 
   @rem Is there other clean solution for this? like batch script is so limited in variations
-  @rem Is better to have an exit condition when not passes trought ifs
-  @rem Than make a boilerplate to consider a solution itself  
+  @rem Is way better to have an exit condition when not passes through ifs
+  @rem Than to make a boilerplate to consider a solution itself  
   
   echo.
   echo %INVALID_OPTION%
-  timeout 1 >nul
+  timeout 2 >nul
 
   call :Menu
   @rem End of menu
@@ -308,7 +306,17 @@ setlocal EnableDelayedExpansion
   )
 
   :CheckConnection (
+    echo Checking internet connection...
     
+    if not "%ENABLE_UPDATE%" == "1" (
+      call :Console:Warn "Disabled Update.."
+      call :Console:Info "The software will now ignore connection through internet.."
+      echo Redirecting..
+      timeout 5 >nul
+      call :Menu
+      exit /b 0
+    )
+
     ping www.google.nl -n 1 -w 1000>nul
     if errorlevel 1 (echo Can't verify update.. skiping) else (
     echo Connected to the internet..
@@ -321,7 +329,7 @@ setlocal EnableDelayedExpansion
   :CheckOsVersion (
     
     @rem 6.1 Windows 7, 6.0 Windows Vista, 6.2 Windows 8, 6.3 Windows 8.1, 10 Windows 10
-    if not "%enableOsCheck%" == "1" (
+    if not "%ENABLE_OSCHECK%" == "1" (
       call :Console:Warn "Disabled OsCheck, the software will not run in compatible mode.."
       call :Console:Info "Errors may can occur during process.."
       echo Redirecting..
