@@ -2,7 +2,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath) 
 
 # redbath 
-Version: 0.1.6 |
+Version: 0.1.7 |
 A batch script reader to read batch scripts throught command prompt
 
 ## support
