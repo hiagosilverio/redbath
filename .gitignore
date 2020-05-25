@@ -1,3 +1,4 @@
 # Ignore custom-scripts folder
 
 custom-scripts/*.bat
+*.reg

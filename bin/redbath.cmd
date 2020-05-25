@@ -4,13 +4,14 @@ setlocal EnableDelayedExpansion
 
 @rem title=RedBath
 @rem description=Batch Script Reader
-@rem version=0.1.7
+@rem version=0.1.8
 
 @rem Find some batchdoc standards
 
 @rem Constructor
 
 :_(
+
   @rem Prevent Window Close when error occurs including closing batch script
   @rem Some kind of witchcraft here /*
   @rem https://stackoverflow.com/questions/17118846/how-to-prevent-batch-window-from-closing-when-error-occurs
@@ -18,18 +19,47 @@ setlocal EnableDelayedExpansion
   
   @rem Set current path temporary
   @rem Need some fix..
-  SET PATH=%PATH%;%~f0
+  @rem Do not include PATH with "%PATH%;%~f0" findstr error
+  @rem This guy could cause a lot of trouble here.. 
+  @rem Must not use SETX to set variable this mean PATH variable
+  @rem https://stackoverflow.com/questions/13222724/command-line-to-remove-an-environment-variable-from-the-os-level-configuration
   
+  @rem Clear setx language enviroment file ----- remove at 1.20
+  @rem > nul 2> nul | Used to supress error messages
+  @rem When not found give to variable errorlevel de number 1
+  @rem We use this query to have something to decide if we need to clear or not 
+  @rem Do not worry these keys are used to include information at old versions
+  
+  @rem https://stackoverflow.com/questions/1192476/format-date-and-time-in-a-windows-batch-script
+
+  REG query "HKCU\Environment" /v "language" > nul 2> nul
+  if %errorlevel% == 0 (REG delete "HKCU\Environment" /F /V language  ) 
+  REG query "HKCU\Environment" /v "source" > nul 2> nul
+  if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V source  )  
+  REG query "HKCU\Environment" /v "library" > nul 2> nul
+  if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V library  ) 
+  REG query "HKCU\Environment" /v "rversion" > nul 2> nul
+  if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V rversion  ) 
+  
+  IF NOT EXIST "..\backup_PATH.reg" (
+    REG export "HKCU\Environment" ..\backup_PATH.reg
+  )
+
+  @rem https://stackoverflow.com/questions/112055/what-does-d0-mean-in-a-windows-batch-file
+ :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
+
+
   @rem Call a function by parameter
-  @rem if first parameter in call bat isn't null
+  @rem if first parameter in bat "redbath.cmd x" isn't null
   if not "%~1" == "" (
 
-    @rem if second parameter in call bat isn't null
+    @rem if second parameter "redbath.cmd x y"  isn't null
      if not "%~2" == "" (
+       @rem Call the goto pseudo function and its parameter %1
       call :%~1 %~2
     )
 
-    @rem else call first only
+    @rem else call only the goto pseudo function
     call:%~1
 
     @rem return
@@ -37,33 +67,36 @@ setlocal EnableDelayedExpansion
 
   ) 
 
-  @rem Calling language file and setting translate variables through it, doesn't need a function, guess I
-  for /f "delims=" %%x in (%language%\en-US.txt) do (set "%%x")
-
-  @rem Calling language file and setting config variables through it, doesn't need a function, guess I
-  for /f "delims=" %%x in (..\config.ini) do (set "%%x")
-
   @rem  https://stackoverflow.com/questions/25166704/convert-a-string-to-integer-in-a-batch-file
+  
+  @rem Default Language Variables
+
+  set "WARN_COLOR=Error: color.bat missing, alerts may could fail during the process.."
+  set "SELECT_OPTION=Select an option:"
+  set "INVALID_OPTION=Invalid option, cleaning.."
+  set "LISTING_SCRIPTS=Listing script files avaliable"
+  set "SCRIPT_NOT_FOUND=No scripts found"
+  set "WARN_SCRIPT_FOLDER_NOT_FOUND=Alert: Scripts folder not found inside the directory"
 
   @rem Constant variables
 
   @rem  Set redbath call alias
   @rem  stackoverflow/what-does-dp0-mean-and-how-does-it-work
   @rem  %~f0 is like full directory that what point out to here ...redbath.cmd
-  @rem  Do not include space between equal and %~f0, with double quotes the result is the same, bug related.
+  @rem  Do not include space between equal and %~f0, with double quotes the result is the same, bug related #15
   set redb=%~f0&
    
   @rem Set menu title
-  set rversion=0.1.7
+  set rversion=0.1.8
 
   @rem Set language folder 
   set "language=..\lang"
 
   @rem Set source folder 
-  set "source=..\src"
+  set source="..\src"
 
   @rem Set library folder
-  set "library=..\lib"
+  set library="..\lib"
 
   @rem Set scripts folder
   @rem Overwrite permissions with [%scripts%]
@@ -84,6 +117,18 @@ setlocal EnableDelayedExpansion
   set "info=call %library%\color.cmd 0B %*"
   set "sucess=call %library%\color.cmd 0A %*"
   set "warn=call %library%\color.cmd 0C %*"
+
+  @rem Calling language file and setting translate variables through it, doesn't need a function, guess I
+  IF exist "%language%\en-US.txt" (
+    @rem Do not include quotes in the [ for in (" ") ] it displays enviroment variable not defined
+    for /f "eol=# delims=" %%x in (%language%\en-US.txt) do (set "%%x")
+  )
+
+  @rem Calling language file and setting config variables through it, doesn't need a function, guess I
+  IF exist "..\config.ini" (
+    @rem Inserted eol parameter to ignore comments with hash #
+    for /f "eol=# delims=" %%x in (..\config.ini) do (set "%%x")
+  )
 
 @rem Call constructor itself passing by parameter to answer a call from other file
 @rem Ex: call ex.bat function value
@@ -262,19 +307,21 @@ setlocal EnableDelayedExpansion
   echo.
   echo  1 - List redbath scripts
   echo  2 - List custom scripts
-  echo  3 - Exit
+  echo  3 - Options
+  echo  4 - Exit
   echo.
   set /p Command= %SELECT_OPTION%
 
   @rem In this case, else need to be in the same line as if
   @rem And batch not supports multiple elses, only one follow by if conditions
-  if "%Command%" == "1" ( call :CallScriptsList ) 
-  if "%Command%" == "2" ( call :CallCustomScriptsList ) 
-  if "%Command%" == "3" ( call :Exit )
+  if "%Command%" == "1" ( call :ScriptsList ) 
+  if "%Command%" == "2" ( call :CustomScriptsList ) 
+  if "%Command%" == "3" ( call :Options ) 
+  if "%Command%" == "4" ( call :Exit )
 
   @rem Is there other clean solution for this? like batch script is so limited in variations
-  @rem Is way better to have an exit condition when not passes through ifs
-  @rem Than to make a boilerplate to consider a solution itself  
+  @rem This is way better to have an exit condition when not passes through ifs
+  @rem Than to make a boilerplate to consider a solution itself imo 
   
   echo.
   echo %INVALID_OPTION%
@@ -287,7 +334,7 @@ setlocal EnableDelayedExpansion
   
   @rem Should define a config file to disable colors.. maybe
 
-  :CallScriptsList (
+  :ScriptsList (
   
     @rem Include listscripts cmd into redbath
     call "%source%\ListScripts.cmd"
@@ -295,7 +342,7 @@ setlocal EnableDelayedExpansion
     exit /b 0
   )
 
-  :CallCustomScriptsList (
+  :CustomScriptsList (
     
     @rem Include listscripts cmd into redbath
 
@@ -304,11 +351,13 @@ setlocal EnableDelayedExpansion
     exit /b 0
     
   )
+  :Options (
 
+  )
   :CheckConnection (
     echo Checking internet connection...
-    
-    if not "%ENABLE_UPDATE%" == "1" (
+    @rem If Enable Update is defined and enable update is equal to zero
+    if not [%ENABLE_UPDATE%] == [] if "%ENABLE_UPDATE%" == "0" (
       call :Console:Warn "Disabled Update.."
       call :Console:Info "The software will now ignore connection through internet.."
       echo Redirecting..
@@ -327,16 +376,21 @@ setlocal EnableDelayedExpansion
 
  
   :CheckOsVersion (
-    
+   
     @rem 6.1 Windows 7, 6.0 Windows Vista, 6.2 Windows 8, 6.3 Windows 8.1, 10 Windows 10
-    if not "%ENABLE_OSCHECK%" == "1" (
+
+    @rem If Enable O.S check is defined and enable O.S check is equal to zero
+    @rem So the default value is 1
+    @rem Or conditions are fuzzy to use in batch file I'd rather prefer to use "AND" conditions
+    if not [%ENABLE_OSCHECK%] == [] if "%ENABLE_OSCHECK%" == "0" (
       call :Console:Warn "Disabled OsCheck, the software will not run in compatible mode.."
       call :Console:Info "Errors may can occur during process.."
       echo Redirecting..
       timeout 5 >nul
       call :Menu
     )
-    
+     
+
     for /f "tokens=4-5 delims=. " %%i in ('ver') do set VERSION=%%i.%%j
     
     if "%version%" == "6.3" ( echo Initializing..& timeout 1 >nul& call :Menu )
@@ -348,6 +402,8 @@ setlocal EnableDelayedExpansion
     echo Press any key to exit..
     pause >nul
     exit /b 0
+
+    
   )
 
   :Exit (
@@ -367,4 +423,8 @@ setlocal EnableDelayedExpansion
 :CallTimeout(
   @rem Message, timeout, function
 
+)
+
+:PS (
+  PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {& %1 }";
 )

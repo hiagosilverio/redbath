@@ -1,3 +1,14 @@
+# Language variable file
+# ------------------------
+# Language: EN-US
+#
+# Description:
+#
+# Overwrite variable writing the translate phrase after =
+# Example : WARN_COLOR=FOO
+# When the redbath starts it displays FOO in the WARN_COLOR variable message.
+# Isn't necessary have a language variable file to work this is a overwrite string file
+
 WARN_COLOR=Error: color.bat missing, alerts may could fail during the process..
 SELECT_OPTION=Select an option:
 INVALID_OPTION=Invalid option, cleaning..
