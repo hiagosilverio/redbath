@@ -57,7 +57,7 @@ CLI functions are in development.. doesn't not include at all in this version
 
 ### Prerequisites
 
-Windows 8x or above
+**Windows 8x** or above
 Tested in 8.1 plataform but we assume that windows 10 run it too..
 
 ## Built With
