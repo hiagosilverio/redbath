@@ -23,7 +23,7 @@ Before to sent a stable release, in development branch you will need to:
 
 Redbath also include **PATH injection** but this is in progress, maybe will appear complete in a stable build.
 
-Include **a.redbath\bin** as path and execute the command as follow:
+Include **redbath-0.1.9\bin** as an enviroment path and execute the command as follow:
 
 red show scripts - show a list of red scripts
 ```
