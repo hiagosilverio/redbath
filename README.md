@@ -9,14 +9,15 @@ A batch script reader to read batch scripts throught command prompt
 
 Before to sent a stable release, in development branch you will need to:
 
-- Download redbath.zip
-- Extract the zip into C:\ drive or Windows Drive Installation
+- Download **redbath.zip**
+- Extract the zip into **C:\** drive or Windows installation drive **(E:\, F:\ ...)**
 - Rename the main folder to **a.redbath**
 - Go to the **bin** folder
-- Execute redbath.bat with double click
+- Execute **redbath.bat** with double click
 - After it starts
-- Select list redbath scripts
-- Run helloWorld.bat
+- Type **2** to select **List redbath scripts** and press **Enter**
+- Type **helloWorld** or **helloWorld.bat**
+- Press **Enter**
 - You are done..
 
 ### Other functions
