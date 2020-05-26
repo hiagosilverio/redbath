@@ -10,9 +10,9 @@ A batch script reader to read batch scripts throught command prompt
 Before to sent a stable release, in development branch you will need to:
 
 - Download redbath.zip
-- Extract into C:\
-- Rename the main folder to a.redbath
-- Go to the bin folder
+- Extract the zip into C:\ drive or Windows Drive Installation
+- Rename the main folder to **a.redbath**
+- Go to the **bin** folder
 - Execute redbath.bat with double click
 - After it starts
 - Select list redbath scripts
