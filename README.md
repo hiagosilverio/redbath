@@ -7,15 +7,14 @@ A batch script reader to read batch scripts throught command prompt
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+- Download redbath.zip
+- Extract into C:\
+- Rename the main folder to a.redbath
+- Execute bin\redbath.bat 
 
 ### Prerequisites
 
 Windows 8.1 or above
-
-### Installing
-
-Download the zip and run redbath at bin folder
 
 ## Built With
 
