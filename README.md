@@ -9,7 +9,7 @@ A batch script reader to read batch scripts throught command prompt
 
 Before to sent a stable release, in development branch you will need to:
 
-- Download **redbath-0.1.9.zip**
+- Download [redbath-0.1.9.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9)
 - Extract the zip with the folder
 - Go to the **bin** folder
 - Execute **redbath.bat** with double click
