@@ -78,7 +78,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-  * **Hiago Silvério** - *Initial work* - [Hiago Silvério](https://github.com/hiagosilverio)
+* **Hiago Silvério** - *Initial work* - [Hiago Silvério](https://github.com/hiagosilverio)
 
 ## License
 
