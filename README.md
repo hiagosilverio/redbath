@@ -12,6 +12,24 @@ A batch script reader to read batch scripts throught command prompt
 - Rename the main folder to a.redbath
 - Execute bin\redbath.bat 
 
+### Other functions
+
+Redbath also include PATH injection but this is in progress to have some build stable.
+
+Include mainfolder\bin\ as path and execute the command as follow:
+
+```
+red show scripts
+```
+And the prompt command will show a list of red scripts
+
+```
+red run script helloWorld
+```
+The prompt command will run the redbath script helloWorld.bat
+
+CLI functions are in development.. doesn't not include at all in this version
+
 ### Prerequisites
 
 Windows 8.1 or above
