@@ -21,7 +21,7 @@ Before to sent a stable release, in development branch you will need to:
 
 ### Other functions
 
-Redbath also include **PATH injection** but this is in progress, maybe will appear the feature complete in a stable build.
+Redbath also include **PATH injection** but this is in progress, maybe will appear the complete feature in a stable build.
 
 Include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
 
