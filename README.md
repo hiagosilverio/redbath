@@ -61,9 +61,9 @@ Doesn't support custom scripts at CLI, only redbath scripts.
 
 **Windows 8x** or above
 
-Tested in 8.1 plataform, it might run on Windows 10 without problems.
+- Tested in 8.1 plataform, it might run on Windows 10 without problems.
 
-Batch knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
+- Batch knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
 ## Built With
 
 * [Batch](https://docs.microsoft.com/pt-br/windows-server/administration/windows-commands/windows-commands) - The main script language
