@@ -26,7 +26,7 @@ And the prompt command will show a list of red scripts
 ```
 red run script helloWorld
 ```
-The prompt command will run the redbath script helloWorld.bat
+The prompt command will run the redbath script **helloWorld.bat**
 
 CLI functions are in development.. doesn't not include at all in this version
 
