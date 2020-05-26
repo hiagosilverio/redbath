@@ -30,9 +30,8 @@ And the prompt command will show a list of red scripts
 ```
 red show scripts
 ```
-```
 Output:
-
+```
 - script.bat
 - script.bat
 - script.bat
@@ -41,12 +40,10 @@ Type the script name:
 ```
 ```
 red run script helloWorld
-```
+
 ```
 Output:
-
-...
-
+```
 The file was found
 
 Running script..
