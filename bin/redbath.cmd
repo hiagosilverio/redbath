@@ -323,8 +323,8 @@ setlocal EnableDelayedExpansion
   echo.
   echo  1 - List redbath scripts
   echo  2 - List custom scripts
-  echo  3 - Options
-  echo  4 - Exit
+  :: echo  3 - Options
+  echo  3 - Exit
   echo.
   set /p Command= %SELECT_OPTION%
 
@@ -332,8 +332,8 @@ setlocal EnableDelayedExpansion
   @rem And batch not supports multiple elses, only one follow by if conditions
   if "%Command%" == "1" ( call :ScriptsList ) 
   if "%Command%" == "2" ( call :CustomScriptsList ) 
-  if "%Command%" == "3" ( call :Options ) 
-  if "%Command%" == "4" ( call :Exit )
+  :: if "%Command%" == "3" ( call :Options ) 
+  if "%Command%" == "3" ( call :Exit )
 
   @rem Is there other clean solution for this? like batch script is so limited in variations
   @rem This is way better to have an exit condition when not passes through ifs
