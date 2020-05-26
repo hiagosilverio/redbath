@@ -12,9 +12,10 @@ Before to sent a stable release, in development branch you will need to:
 - Download redbath.zip
 - Extract into C:\
 - Rename the main folder to a.redbath
-- Execute bin\redbath.bat 
-- Select an option
-- List redbath scripts
+- Go to the bin folder
+- Execute redbath.bat with double click
+- After it starts
+- Select list redbath scripts
 - Run helloWorld.bat
 - You are done..
 
