@@ -23,7 +23,7 @@ Before to sent a stable release, in development branch you will need to:
 
 Redbath also include **PATH injection** but this is in progress, maybe will appear the complete feature in a stable build.
 
-Include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
+If you want to use CLI functions include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
 
 Run the prompt command and type as follow:
 
