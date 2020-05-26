@@ -14,8 +14,11 @@ if [%redb%] == [] ( exit /b)
 
     @rem Retrieve value passed by parameter as %1
     @rem Overwrite the scripts variable with parameter
+    if "%~1" == "red" (
+       call :ListScripts %1 %2
+    )
 
-    if not "%~1" == "" (
+    if "%~1" == "path" if not "%~2" == "" (
         set scripts=%1
     )
     
@@ -31,7 +34,7 @@ if [%redb%] == [] ( exit /b)
     call :Main
 
 @rem Recieve the variable parameter
-) | call:_ %1 
+) | call:_ %1* 
 
 :Main (
 
@@ -56,7 +59,7 @@ pause
 
 @rem List avaliable scripts
 :ListScripts (
-     
+
     @rem Use new scripts variable value into if
     if exist "%scripts%" (
         if exist "%scripts%\*.bat" (
@@ -99,23 +102,29 @@ pause
 
     )
     echo.
-    set /p scriptName=Type the script name: 
-    
-    if exist ( "%scripts%\%scriptName%.bat" | "%scripts%\%scriptName%" ) (
+       if "%~1" == "red" (
+        set "scriptName=%~2"
+       ) else (
+        set /p scriptName=Type the script name: 
+       )
+
+    if exist "%scripts%\%scriptName%.bat" ( set SCRIPTFOUND=1 )
+    if exist "%scripts%\%scriptName%" ( set SCRIPTFOUND=1 )
+    if NOT "%SCRIPTFOUND%" == "" (
 
         echo.
         echo The file was found..
         %wait%
         call %info% "To force stop the batch processing press CRTL+C"
         echo.
-        call  %info%"Please, do not close the window or turn off the computer between disk formatation, copy or move"
+        call %info% "Please, do not close the window or turn off "
+        call %info% "the computer between disk formatation, copy or move"
         
         echo.
         echo Running script..
         timeout 3 >nul
-        echo.
         If NOT "%scriptName%"=="%scriptName:.bat=%" (
-            call "%scripts%\%scriptName%"
+            call "%scripts%\%scriptName%\"
         ) else (
             call "%scripts%\%scriptName%.bat"
         )
@@ -130,7 +139,7 @@ pause
     ) else (
 
         echo.
-        call %warn% "Alert: Invalid info or bad typing: %scriptName%"
+        call %warn% "[Error] Script not found: %scriptName%"
         echo Redirecting to the script listing.. 
         timeout 6 >nul
         call :Main

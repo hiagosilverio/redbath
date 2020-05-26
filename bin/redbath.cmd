@@ -4,14 +4,14 @@ setlocal EnableDelayedExpansion
 
 @rem title=RedBath
 @rem description=Batch Script Reader
-@rem version=0.1.8
+@rem version=0.1.9
 
 @rem Find some batchdoc standards
 
 @rem Constructor
 
 :_(
-
+  
   @rem Prevent Window Close when error occurs including closing batch script
   @rem Some kind of witchcraft here /*
   @rem https://stackoverflow.com/questions/17118846/how-to-prevent-batch-window-from-closing-when-error-occurs
@@ -41,31 +41,13 @@ setlocal EnableDelayedExpansion
   REG query "HKCU\Environment" /v "rversion" > nul 2> nul
   if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V rversion  ) 
   
-  IF NOT EXIST "..\backup_PATH.reg" (
-    REG export "HKCU\Environment" ..\backup_PATH.reg
-  )
+  ::IF NOT EXIST "..\backup_PATH.reg" (
+  ::  REG export "HKCU\Environment" ..\backup_PATH.reg
+  ::)
 
   @rem https://stackoverflow.com/questions/112055/what-does-d0-mean-in-a-windows-batch-file
- :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
+  :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
 
-
-  @rem Call a function by parameter
-  @rem if first parameter in bat "redbath.cmd x" isn't null
-  if not "%~1" == "" (
-
-    @rem if second parameter "redbath.cmd x y"  isn't null
-     if not "%~2" == "" (
-       @rem Call the goto pseudo function and its parameter %1
-      call :%~1 %~2
-    )
-
-    @rem else call only the goto pseudo function
-    call:%~1
-
-    @rem return
-    exit /b 0
-
-  ) 
 
   @rem  https://stackoverflow.com/questions/25166704/convert-a-string-to-integer-in-a-batch-file
   
@@ -85,26 +67,29 @@ setlocal EnableDelayedExpansion
   @rem  %~f0 is like full directory that what point out to here ...redbath.cmd
   @rem  Do not include space between equal and %~f0, with double quotes the result is the same, bug related #15
   set redb=%~f0&
-   
+  
+  SET parent=%~dp0
+  FOR %%a IN ("%parent:~0,-1%") DO SET grandparent=%%~dpa
+
   @rem Set menu title
-  set rversion=0.1.8
+  set rversion=0.1.9
 
   @rem Set language folder 
-  set "language=..\lang"
+  set "language=%grandparent%\lang"
 
   @rem Set source folder 
-  set source="..\src"
+  set "source=%grandparent%\src"
 
   @rem Set library folder
-  set library="..\lib"
+  set "library=%grandparent%\lib"
 
   @rem Set scripts folder
   @rem Overwrite permissions with [%scripts%]
   set "scripts=[%scripts%]"
-  set "scripts=..\scripts"
+  set "scripts=%grandparent%scripts"
 
   @rem Set custom scripts folder
-  set "cscripts=..\custom-scripts"
+  set "cscripts=%grandparent%\custom-scripts"
 
   @rem  This is where set color.bat path and pass through it hexadecimal colors
   @rem  Parameters [hex hexcolor, string messagename] 
@@ -114,9 +99,9 @@ setlocal EnableDelayedExpansion
   @rem Variables were transformed into child pseudo functions
   @rem Use call Console:Info to display color and message
   @rem usage: %info% "message"
-  set "info=call %library%\color.cmd 0B %*"
-  set "sucess=call %library%\color.cmd 0A %*"
-  set "warn=call %library%\color.cmd 0C %*"
+  set "info=call %library%\color.cmd 0B "
+  set "sucess=call %library%\color.cmd 0A "
+  set "warn=call %library%\color.cmd 0C "
 
   @rem Calling language file and setting translate variables through it, doesn't need a function, guess I
   IF exist "%language%\en-US.txt" (
@@ -127,12 +112,43 @@ setlocal EnableDelayedExpansion
   @rem Calling language file and setting config variables through it, doesn't need a function, guess I
   IF exist "..\config.ini" (
     @rem Inserted eol parameter to ignore comments with hash #
-    for /f "eol=# delims=" %%x in (..\config.ini) do (set "%%x")
+    for /f "eol=# delims=" %%x in (%grandparent%\config.ini) do (set "%%x")
   )
+  
+  @rem Call a function by parameter
+  @rem if first parameter in bat "redbath.cmd x" isn't null
+  if not "%~1" == "" (
+   
+   call :Wait
+   
+  @rem if second parameter "redbath.cmd x y"  isn't null
+    if not "%~2" == "" if "%~3" == "" (
+       @rem Call the goto pseudo function and its parameter %1
+      call :%~1 %~2 
 
+    )
+
+  @rem if second parameter "redbath.cmd x y"  isn't null
+    if not "%~3" == "" (
+       @rem Call the goto pseudo function and its parameter %1
+
+      call :%~1 %~2 %~3   
+
+    )
+
+
+
+    @rem else call only the goto pseudo function
+    call:%~1
+
+    @rem return
+    exit /b 0
+
+  ) 
+  
 @rem Call constructor itself passing by parameter to answer a call from other file
 @rem Ex: call ex.bat function value
-) | call:_ %1 
+) | call:_ %1* 
 
 :Main(
 
@@ -337,8 +353,12 @@ setlocal EnableDelayedExpansion
   :ScriptsList (
   
     @rem Include listscripts cmd into redbath
-    call "%source%\ListScripts.cmd"
-    
+    if not "%~2" == "" (
+      call %source%\ListScripts.cmd red %~2
+    )
+
+    call %source%\ListScripts.cmd
+
     exit /b 0
   )
 
@@ -346,7 +366,7 @@ setlocal EnableDelayedExpansion
     
     @rem Include listscripts cmd into redbath
 
-    call "%source%\ListScripts.cmd" %cscripts% 
+    call %source%\ListScripts.cmd path %cscripts% 
  
     exit /b 0
     
@@ -355,6 +375,7 @@ setlocal EnableDelayedExpansion
 
   )
   :CheckConnection (
+    
     echo Checking internet connection...
     @rem If Enable Update is defined and enable update is equal to zero
     if not [%ENABLE_UPDATE%] == [] if "%ENABLE_UPDATE%" == "0" (
