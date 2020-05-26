@@ -26,14 +26,32 @@ Redbath also include **PATH injection** but this is in progress, maybe will appe
 
 Include **mainfolder\bin** as path and execute the command as follow:
 
+And the prompt command will show a list of red scripts
 ```
 red show scripts
 ```
-And the prompt command will show a list of red scripts
+```
+Output:
 
+- script.bat
+- script.bat
+- script.bat
 
+Type the script name:
+```
 ```
 red run script helloWorld
+```
+```
+Output:
+
+...
+
+The file was found
+
+Running script..
+
+redbath executed sucessfully..
 ```
 The prompt command will run the redbath script **helloWorld.bat**
 
