@@ -27,7 +27,7 @@ Include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the 
 
 Run the prompt command and type as follow:
 
-red show scripts - show a list of red scripts
+red show scripts - show a list of redbath scripts
 ```
 red show scripts
 ```
