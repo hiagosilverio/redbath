@@ -61,6 +61,7 @@ Doesn't support custom scripts at CLI, only redbath scripts.
 ### Prerequisites
 
 **Windows 8x** or above
+
 Tested in 8.1 plataform but we assume that windows 10 run it too..
 
 Batch knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
