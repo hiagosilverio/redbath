@@ -56,7 +56,7 @@ The prompt command will run the redbath script **helloWorld.bat**
 
 CLI functions are in development.. doesn't not include at all in this version
 
-In 0.1.9 doesn't support custom scripts at CLI.
+Doesn't support custom scripts at CLI, only redbath scripts.
 
 ### Prerequisites
 
