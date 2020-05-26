@@ -9,15 +9,15 @@ A batch script reader to read batch scripts throught command prompt
 
 Before to sent a stable release, in development branch you will need to:
 
-- Download [redbath-0.1.9.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9) 
-- Extract the zip with the main folder
-- Go to the **bin** folder
-- Execute **redbath.bat** with double click
-- After it starts
-- Type **2** to select **List redbath scripts** and press **Enter**
-- Type **helloWorld** or **helloWorld.bat**
-- Press **Enter**
-- You are done..
+-   Download [redbath-0.1.9.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9) 
+-   Extract the zip with the main folder
+-   Go to the **bin** folder
+-   Execute **redbath.bat** with double click
+-   After it starts
+-   Type **2** to select **List redbath scripts** and press **Enter**
+-   Type **helloWorld** or **helloWorld.bat**
+-   Press **Enter**
+-   You are done..
 
 ### Other functions
 
@@ -66,7 +66,7 @@ Doesn't support custom scripts at CLI, only redbath scripts.
   - Batch knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
 ## Built With
 
-  * [Batch](https://docs.microsoft.com/pt-br/windows-server/administration/windows-commands/windows-commands) - The main script language
+  *   [Batch](https://docs.microsoft.com/pt-br/windows-server/administration/windows-commands/windows-commands) - The main script language
 
 ## Contributing
 
@@ -78,7 +78,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Hiago Silvério** - *Initial work* - [Hiago Silvério](https://github.com/hiagosilverio)
+*   **Hiago Silvério** - *Initial work* - [Hiago Silvério](https://github.com/hiagosilverio)
 
 ## License
 
