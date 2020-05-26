@@ -23,6 +23,7 @@ red show scripts
 ```
 And the prompt command will show a list of red scripts
 
+
 ```
 red run script helloWorld
 ```
