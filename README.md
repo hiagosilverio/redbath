@@ -16,7 +16,7 @@ A batch script reader to read batch scripts throught command prompt
 
 Redbath also include PATH injection but this is in progress to have some build stable.
 
-Include mainfolder\bin\ as path and execute the command as follow:
+Include **mainfolder\bin** as path and execute the command as follow:
 
 ```
 red show scripts
