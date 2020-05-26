@@ -7,6 +7,8 @@ A batch script reader to read batch scripts throught command prompt
 
 ## Getting Started
 
+Before to sent a stable release, in development branch you will need to:
+
 - Download redbath.zip
 - Extract into C:\
 - Rename the main folder to a.redbath
