@@ -19,7 +19,7 @@ if [%redb%] == [] ( exit /b)
     )
 
     if "%~1" == "path" if not "%~2" == "" (
-        set scripts=%1
+        set scripts=%2
     )
     
     @rem Call redbath and push functions with scripts
