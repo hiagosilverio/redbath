@@ -72,17 +72,17 @@ pause
             %info% "Empty script folder, no script file found"
             %wait%
             echo.
-            
+
             @rem Do not use parentesis in a question (Bug related)
-            set /p scriptQuestion=Do you want to create an example script? [y/n]
+            @rem Use variable with delayed expansion, set /p not working properly with %var%
+            set /p scriptQ=Do you want to create an example script? [y/n]:
 
             @rem Maybe a yes or not here..
-            if "%scriptQuestion%" == "Y" ( 
+            if /i "!scriptQ!" == "y" ( 
                 call :ScriptBuild
             ) else (     
                 call :Main
             )
-
         )
     ) else (
 
@@ -105,12 +105,18 @@ pause
        if "%~1" == "red" (
         set "scriptName=%~2"
        ) else (
-        set /p scriptName=Type the script name: 
+        set /p scriptName=Type the script name or type 'menu' to return to main menu: 
        )
+    @rem Create permission to replacable value
+    set SCRIPTFOUND=[%SCRIPTFOUND%]
 
+    if "%scriptName%" == "menu" ( call redbath )
     if exist "%scripts%\%scriptName%.bat" ( set SCRIPTFOUND=1 )
     if exist "%scripts%\%scriptName%" ( set SCRIPTFOUND=1 )
-    if NOT "%SCRIPTFOUND%" == "" (
+
+    if [%scriptName%] == [] ( set SCRIPTFOUND=0 )
+    
+    if %SCRIPTFOUND% == 1 (
 
         echo.
         echo The file was found..
@@ -128,7 +134,6 @@ pause
         ) else (
             call "%scripts%\%scriptName%.bat"
         )
-        call "%scripts%\%scriptName%.bat"
         echo. 
         echo Batch script was finished sucessfully!
         echo.
@@ -137,14 +142,16 @@ pause
         call :Main 
 
     ) else (
-
         echo.
         call %warn% "[Error] Script not found: %scriptName%"
+        @rem Clear variable set /p garbage
+        set scriptName=
         echo Redirecting to the script listing.. 
         timeout 6 >nul
         call :Main
-
     )
+
+    
 
     exit /B 0
 )
@@ -154,15 +161,25 @@ pause
     %info% "Inserting script test file.."
     %wait%
     @rem Inserting text into a file named helloWorld.bat
-    echo echo batch successfuly executed >> %scripts%\helloWorld.bat 
+    echo @echo off > %scripts%\helloWorld.bat
+    echo echo HelloWorld successfuly executed >> %scripts%\helloWorld.bat
+    echo exit /b 0 >> %scripts%\helloWorld.bat
+
     if NOT %errorlevel% == 0 ( Echo Error: Unknown error on create helloWorld   )
     %wait%
+    %info% "Running helloWorld.bat.."
     call %scripts%\helloWorld.bat
+
+    echo.
 
     @rem Call wait from redbath clean the screen, so well there we prevent it with timeout
     @rem >nul is a hack to eliminate echo
     timeout 3 >nul
-    EXIT /B 0
+
+    @rem Return to listScripts function
+    call :ListScripts
+
+    exit /b 0
 
 )
 
