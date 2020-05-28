@@ -72,7 +72,7 @@ setlocal EnableDelayedExpansion
   FOR %%a IN ("%parent:~0,-1%") DO SET grandparent=%%~dpa
 
   @rem Set menu title
-  set rversion=0.1.9
+  set rversion=0.1.9.1
 
   @rem Set language folder 
   set "language=%grandparent%\lang"
@@ -416,10 +416,10 @@ setlocal EnableDelayedExpansion
     
     if "%version%" == "6.3" ( echo Initializing..& timeout 1 >nul& call :Menu )
     if "%version%" == "6.2" (  echo Initializing..& timeout 1 >nul& call :Menu )
-    if "%version%" == "10.0"( echo Initializing..& timeout 1 >nul& call :Menu )
+   :: if "%version%" == "10.0"( echo Initializing..& timeout 1 >nul& call :Menu )
     
     echo Sorry, your operacional system seems not compatible with this software
-    echo if you disagree, please disable O.S check
+    echo if you disagree, please disable O.S check on config.ini
     echo Press any key to exit..
     pause >nul
     exit /b 0
