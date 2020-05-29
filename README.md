@@ -25,7 +25,7 @@ Redbath also include **PATH injection** but this is in progress, maybe will appe
 
 If you want to use CLI functions include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
 
-Run the prompt command and type as follow:
+**Run the prompt command and type as follow:**
 
 red show scripts - show a list of redbath scripts
 ```
