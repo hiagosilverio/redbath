@@ -1,7 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/323eaa7b39a84234a311d5023650c3a0)](https://www.codacy.com/manual/hiago.silverioest/redbath?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hiagosilverio/redbath&amp;utm_campaign=Badge_Grade)
 ![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath) 
 
-# RedBath | 0.1.9 - Alpha
+# RedBath | 0.1.9.1 - Alpha
 
 A batch script reader
 
@@ -9,7 +9,7 @@ A batch script reader
 
 Follow this steps in the development branch to set up:
 
--   Download [redbath-0.1.9.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9) 
+-   Download [redbath-0.1.9.1.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9.1) 
 -   Extract the zip with the main folder
 -   Go to the **bin** folder
 -   Execute **redbath.bat** with double click
