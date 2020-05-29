@@ -55,9 +55,9 @@ Running script..
 
 redbath executed sucessfully..
 ```
-- The prompt command will run the redbath script **helloWorld.bat**
+-   The prompt command will run the redbath script **helloWorld.bat**
 
-- CLI functions are in development, not included any support in this version.
+-   CLI functions are in development, not included any support in this version.
 
 ### Prerequisites
 
