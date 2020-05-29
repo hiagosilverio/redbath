@@ -19,6 +19,8 @@ Follow this steps in the development branch to set up:
 -   Press **Enter**
 -   You are done..
 
+Memo: If the helloWorld not run properly in this alpha version, doesn't mean that other stuff will not run, but this is the first step to run. If you are having some throuble during this process, please submit a new issue with label named bug so that way could verify if something is wrong 
+
 ### Other functions
 
 Redbath also include **PATH injection** but this is in progress, maybe will appear the complete feature in a stable build.
