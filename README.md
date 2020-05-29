@@ -3,7 +3,7 @@
 
 # RedBath | 0.1.9 - Alpha
 
-A batch script reader to read batch scripts throught command prompt
+A batch script reader
 
 ## Getting Started
 
