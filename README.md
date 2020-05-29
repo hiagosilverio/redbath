@@ -70,6 +70,7 @@ Doesn't support custom scripts at CLI, only redbath scripts.
 
 ## Contributing
 
+-- Under construction --
 Please read [CONTRIBUTING.md](https://gist.github.com/hiagosilverio/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
