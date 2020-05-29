@@ -63,7 +63,7 @@ Doesn't support custom scripts at CLI, only redbath scripts.
 
 **Windows 8x**
 
-  - Batch knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
+  - Also, batch script knowledge, to create new custom scripts at custom folder.. not necessary to run standard scripts.
 ## Built With
 
   *   [Batch](https://docs.microsoft.com/pt-br/windows-server/administration/windows-commands/windows-commands) - The main script language
