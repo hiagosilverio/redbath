@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/323eaa7b39a84234a311d5023650c3a0)](https://www.codacy.com/manual/hiago.silverioest/redbath?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hiagosilverio/redbath&amp;utm_campaign=Badge_Grade)
 ![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
