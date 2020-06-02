@@ -7,6 +7,8 @@ A batch script reader
 
 ## Getting Started
 
+![GitHub Logo](https://i.imgur.com/XtBMGsk.jpg)
+
 Follow this steps in the development branch to set up:
 
 -   Download [redbath-0.1.9.1.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.1.9.1) 
