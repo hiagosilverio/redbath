@@ -84,9 +84,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 *   **Hiago Silvério** - *Initial work* - [Hiago Silvério](https://github.com/hiagosilverio)
 
-## License
-
-This project is licensed under the GPL 3.0 License - see the [LICENSE](LICENSE) file for details
-
-
-
