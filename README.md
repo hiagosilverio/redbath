@@ -70,6 +70,10 @@ redbath executed sucessfully..
 
   *   [Batch](https://docs.microsoft.com/pt-br/windows-server/administration/windows-commands/windows-commands) - The main script language
 
+## Lint
+
+It uses [BatCodeCheck](https://www.robvanderwoude.com/battech_batcodecheck.php) to check errors before run, some errors aren't fixed because sometimes it gives a false positive.
+
 ## Contributing
 
 -- Under construction --
@@ -78,7 +82,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/hiagosilverio/b24679402957
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/hiagosilverio/redbath/tags). 
+[SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/hiagosilverio/redbath/tags). 
 
 ## Authors
 
