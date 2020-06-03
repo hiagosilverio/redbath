@@ -7,7 +7,7 @@ A batch script reader
 
 ## Getting Started
 
-Sample Iamge
+Sample image
 https://i.imgur.com/XtBMGsk.jpg
 
 Follow this steps in the development branch to set up:
