@@ -7,7 +7,8 @@ A batch script reader
 
 ## Getting Started
 
-![GitHub Logo](https://i.imgur.com/XtBMGsk.jpg)
+Sample Iamge
+https://i.imgur.com/XtBMGsk.jpg
 
 Follow this steps in the development branch to set up:
 
