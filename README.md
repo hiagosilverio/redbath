@@ -3,8 +3,8 @@
 
 # RedBath | 0.1.9.1 - Alpha
 A batch script reader
-![](https://i.imgur.com/XtBMGsk.jpg | width=100)
-<br/><a href="https://i.imgur.com/XtBMGsk.jpg/" target="_blank">Sample image</a>
+<br/><img src="https://i.imgur.com/XtBMGsk.jpg" width="400">
+<br/><a href="https://i.imgur.com/XtBMGsk.jpg" target="_blank">Image Link</a>
 ## Getting Started
 
 Follow this steps in the development branch to set up:
