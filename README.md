@@ -4,7 +4,7 @@
 # RedBath | 0.1.9.1 - Alpha
 
 A batch script reader
-<a href="https://i.imgur.com/XtBMGsk.jpg/" target="_blank">Sample image</a>
+<br/><a href="https://i.imgur.com/XtBMGsk.jpg/" target="_blank">Sample image</a>
 ## Getting Started
 
 Follow this steps in the development branch to set up:
