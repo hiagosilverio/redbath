@@ -2,7 +2,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/hiagosilverio/redbath/blob/development/LICENSE)
 
 # RedBath | 0.1.9.1 - Alpha
-<a href="test.html" onclick="return ! window.open(this.href);">Open in a new window</a>
 A batch script reader
 <br/><a href="https://i.imgur.com/XtBMGsk.jpg/" target="_blank">Sample image</a>
 ## Getting Started
