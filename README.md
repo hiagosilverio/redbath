@@ -3,6 +3,7 @@
 
 # RedBath | 0.1.9.1 - Alpha
 A batch script reader
+![](https://i.imgur.com/XtBMGsk.jpg | width=100)
 <br/><a href="https://i.imgur.com/XtBMGsk.jpg/" target="_blank">Sample image</a>
 ## Getting Started
 
