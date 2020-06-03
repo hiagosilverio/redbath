@@ -1,6 +1,8 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/hiagosilverio/redbath/blob/development/LICENSE)
 
+If you like it, give to it a star!
+
 # RedBath | 0.1.9.1 - Alpha
 
 A batch script reader
