@@ -8,7 +8,7 @@ A batch script reader
 ## Getting Started
 
 Sample image
-![Teste](https://i.imgur.com/XtBMGsk.jpg)
+(https://i.imgur.com/XtBMGsk.jpg)
 
 Follow this steps in the development branch to set up:
 
