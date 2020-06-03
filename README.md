@@ -72,7 +72,7 @@ redbath executed sucessfully..
 
 ## Lint
 
-It uses [BatCodeCheck](https://www.robvanderwoude.com/battech_batcodecheck.php) to check errors before run, some errors aren't fixed because sometimes it gives a false positive.
+It uses [BatCodeCheck](https://www.robvanderwoude.com/battech_batcodecheck.php) to check errors before run, some errors aren't fixed because sometimes it gives a false positive, not implemented in this version.
 
 ## Contributing
 
