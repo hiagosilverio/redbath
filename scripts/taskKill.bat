@@ -11,7 +11,7 @@ if "%scriptQuestion%" == "quit" (
     tasklist /FI "IMAGENAME eq %scriptQuestion%.exe" 2>NUL | find /I /N "%scriptQuestion%.exe">NUL
     if "%ERRORLEVEL%"=="0" (
         Echo Killing..
-        taskkill /im %scriptQuestion%.exe /f
+        taskkill /im "%scriptQuestion%".exe /f
     )
     if "%ERRORLEVEL%"=="1" Echo Process not running
  )
