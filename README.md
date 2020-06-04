@@ -24,7 +24,7 @@ Follow this steps in the development branch to set up:
 
 Redbath also include **PATH injection** but this is in progress, maybe will appear the complete feature in a stable build.
 
-If you want to use CLI functions include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
+If you want to use "CLI functions" include **Drive:\path\redbath-0.1.9\bin** as an enviroment path and execute the command.
 
 **Run the prompt command and type as follow:**
 
