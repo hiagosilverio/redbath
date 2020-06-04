@@ -2,7 +2,7 @@
 
 tasklist | sort 
 
-set /p scriptQuestion=Type the process name do kill or type quit to return:
+set /p scriptQuestion=Type the process name to kill or type quit to return:
 
 @rem Maybe a yes or not here..
 if "%scriptQuestion%" == "quit" ( 
