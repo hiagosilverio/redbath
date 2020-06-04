@@ -1,4 +1,4 @@
-![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath) 
+[![GitHub issues](https://img.shields.io/github/issues-raw/hiagosilverio/redbath)](https://github.com/hiagosilverio/redbath/issues)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/hiagosilverio/redbath/blob/development/LICENSE)
 
 # RedBath | 0.2.0 - Alpha
