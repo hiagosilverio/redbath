@@ -161,13 +161,13 @@ pause
     %info% "Inserting script test file.."
     %wait%
     @rem Inserting text into a file named helloWorld.bat
-    echo @echo off > %scripts%\helloWorld.bat
-    echo echo HelloWorld successfuly executed >> %scripts%\helloWorld.bat
-    echo exit /b 0 >> %scripts%\helloWorld.bat
+    echo @echo off > %scripts%\helloworld.bat
+    echo echo HelloWorld successfuly executed >> %scripts%\helloworld.bat
+    echo exit /b 0 >> %scripts%\helloworld.bat
 
-    if NOT %errorlevel% == 0 ( Echo Error: Unknown error on create helloWorld   )
+    if NOT %errorlevel% == 0 ( Echo Error: Unknown error on create helloworld   )
     %wait%
-    %info% "Running helloWorld.bat.."
+    %info% "Running helloworld.bat.."
     call %scripts%\helloWorld.bat
 
     echo.
