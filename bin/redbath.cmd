@@ -41,9 +41,10 @@ REM Constructor
   REG query "HKCU\Environment" /v "rversion" > nul 2> nul
   if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V rversion  ) 
   
-  ::IF NOT EXIST "..\backup_PATH.reg" (
-  ::  REG export "HKCU\Environment" ..\backup_PATH.reg
-  ::)
+  IF NOT EXIST "..\backup_*.reg" (
+  :: Added Random to backup
+    REG export "HKCU\Environment" ..\backup_%random%.reg
+  )
 
   REM https://stackoverflow.com/questions/112055/what-does-d0-mean-in-a-windows-batch-file
   :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
@@ -70,43 +71,45 @@ REM Constructor
   
   SET parent=%~dp0
   FOR %%a IN ("%parent:~0,-1%") DO SET grandparent=%%~dpa
-
+  
   REM Set menu title
   set rversion=0.1.9.1
 
   REM Set language folder 
-  set "language=%grandparent%\lang"
+  set language="!grandparent!\lang";
 
   REM Set source folder 
-  set "source=%grandparent%\src"
+  set source="!grandparent!\src"
 
   REM Set library folder
-  set "library=%grandparent%\lib"
+  set library="!grandparent!\lib"
 
   REM Set scripts folder
   REM Overwrite permissions with [%scripts%]
-  set "scripts=[%scripts%]"
-  set "scripts=%grandparent%scripts"
+  set scripts="[%scripts%]"
+  set scripts="%grandparent%scripts"
 
   REM Set custom scripts folder
-  set "cscripts=%grandparent%\custom-scripts"
+  set cscripts="%grandparent%\custom-scripts"
 
   REM  This is where set color.bat path and pass through it hexadecimal colors
   REM  Parameters [hex hexcolor, string messagename] 
   REM  Colors for info, sucess and warn
   
-  REM Deprecated [0.1.5]
   REM Variables were transformed into child pseudo functions
   REM Use call Console:Info to display color and message
   REM usage: %info% "message"
+  REM Need "var=command" to work, i know "var=value" is part of bad prattice 
+  REM This is why this is deprecated
+  REM Deprecated [0.1.5] 
   set "info=call %library%\color.cmd 0B "
   set "sucess=call %library%\color.cmd 0A "
   set "warn=call %library%\color.cmd 0C "
 
   REM Calling language file and setting translate variables through it, doesn't need a function, guess I
-  IF exist "%language%\en-US.txt" (
+  IF exist "!language!\en-US.txt" (
     REM Do not include quotes in the [ for in (" ") ] it displays enviroment variable not defined
-    for /f "eol=# delims=" %%x in (%language%\en-US.txt) do (set "%%x")
+    for /f "eol=# delims=" %%x in ("!language!\en-US.txt") do (set "%%x")
   )
 
   REM Calling language file and setting config variables through it, doesn't need a function, guess I

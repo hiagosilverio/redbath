@@ -1,6 +1,6 @@
 @echo off
 
-SET downloadUrl=https://raw.githubusercontent.com/hiagosilverio/redbath/development/redbath.bat
+SET downloadUrl=https://raw.githubusercontent.com/hiagosilverio/redbath/development/redbath.git
 SET tempFile=%cd%\.%random%-tmp
 
 BITSADMIN /transfer /download %downloadUrl% %tempFile% >nul
