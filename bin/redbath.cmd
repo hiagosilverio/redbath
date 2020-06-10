@@ -4,7 +4,7 @@ setlocal EnableDelayedExpansion
 
 REM title=RedBath
 REM description=Batch Script Reader
-REM version=0.1.9
+REM version=0.2.0
 
 REM Find some batchdoc standards
 
@@ -46,6 +46,24 @@ REM Constructor
     REG export "HKCU\Environment" ..\backup_%random%.reg
   )
 
+  if not exist "..\config.ini" (
+    
+    echo # > ..\config.ini
+    echo # Configuration File >> ..\config.ini
+    echo #--------------------------------------- >> ..\config.ini
+    echo # Set 1 to active and 0 to inactive >> ..\config.ini
+    echo # Use '#' to comment variables >> ..\config.ini
+    echo #---------------------------------------- >> ..\config.ini
+    echo # >> ..\config.ini
+    echo # >> ..\config.ini
+    echo # >> ..\config.ini
+    echo ENABLE_OSCHECK=1 >> ..\config.ini
+    echo ENABLE_UPDATE=1 >> ..\config.ini
+    echo WRITE_EXPORT=0 >> ..\config.ini
+    echo DEVELOPMENT_MODE=0 >> ..\config.ini
+
+  )
+
   REM https://stackoverflow.com/questions/112055/what-does-d0-mean-in-a-windows-batch-file
   :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
 
@@ -71,9 +89,9 @@ REM Constructor
   
   SET parent=%~dp0
   FOR %%a IN ("%parent:~0,-1%") DO SET grandparent=%%~dpa
-  
+
   REM Set menu title
-  set rversion=0.1.9.1
+  set rversion=0.2.0
 
   REM Set language folder 
   set language="!grandparent!\lang";
