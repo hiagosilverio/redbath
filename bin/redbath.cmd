@@ -41,28 +41,6 @@ REM Constructor
   REG query "HKCU\Environment" /v "rversion" > nul 2> nul
   if %errorlevel% == 0 ( REG delete "HKCU\Environment" /F /V rversion  ) 
   
-  IF NOT EXIST "..\backup_*.reg" (
-  :: Added Random to backup
-    REG export "HKCU\Environment" ..\backup_%random%.reg
-  )
-
-  if not exist "..\config.ini" (
-    
-    echo # > ..\config.ini
-    echo # Configuration File >> ..\config.ini
-    echo #--------------------------------------- >> ..\config.ini
-    echo # Set 1 to active and 0 to inactive >> ..\config.ini
-    echo # Use '#' to comment variables >> ..\config.ini
-    echo #---------------------------------------- >> ..\config.ini
-    echo # >> ..\config.ini
-    echo # >> ..\config.ini
-    echo # >> ..\config.ini
-    echo ENABLE_OSCHECK=1 >> ..\config.ini
-    echo ENABLE_UPDATE=1 >> ..\config.ini
-    echo WRITE_EXPORT=0 >> ..\config.ini
-    echo DEVELOPMENT_MODE=0 >> ..\config.ini
-
-  )
 
   REM https://stackoverflow.com/questions/112055/what-does-d0-mean-in-a-windows-batch-file
   :: REG add "HKCU\Environment" /v PATH /t REG_EXPAND_SZ /d "%PATH%;%~d0%~p0"
@@ -109,6 +87,33 @@ REM Constructor
 
   REM Set custom scripts folder
   set cscripts="%grandparent%\custom-scripts"
+
+  IF NOT EXIST "%grandparent%\backup_*.reg" (
+  :: Added Random to backup
+    REG export "HKCU\Environment" %grandparent%\backup_%random%.reg
+  )
+
+  @rem This is necessary because, zips under windows 7 are putting the txt file in one line.
+  @rem So we need to generate config.ini
+  if not exist "%grandparent%\config.ini" (
+
+    echo Generating config.ini
+
+    echo # > ..\config.ini
+    echo # Configuration File >> ..\config.ini
+    echo #--------------------------------------- >> ..\config.ini
+    echo # Set 1 to active and 0 to inactive >> ..\config.ini
+    echo # Use '#' to comment variables >> ..\config.ini
+    echo #---------------------------------------- >> ..\config.ini
+    echo # >> ..\config.ini
+    echo # >> ..\config.ini
+    echo # >> ..\config.ini
+    echo ENABLE_OSCHECK=1 >> ..\config.ini
+    echo ENABLE_UPDATE=1 >> ..\config.ini
+    echo WRITE_EXPORT=0 >> ..\config.ini
+    echo DEVELOPMENT_MODE=0 >> ..\config.ini
+
+  )
 
   REM  This is where set color.bat path and pass through it hexadecimal colors
   REM  Parameters [hex hexcolor, string messagename] 
@@ -393,7 +398,9 @@ REM Show options to be chossen
     
     echo Checking internet connection...
     REM If Enable Update is defined and enable update is equal to zero
-    if not [!ENABLE_UPDATE!] == [] if "!ENABLE_UPDATE!" == "0" (
+    REM Some errors between enabledelayed expansion..
+    REM Delayed expansion sometimes can't verify the condition, and return false positive.
+    if %ENABLE_UPDATE%==0 (
       call :Console:Warn "Disabled Update.."
       call :Console:Info "The software will now ignore connection through internet.."
       echo Redirecting..
@@ -418,7 +425,7 @@ REM Show options to be chossen
     REM If Enable O.S check is defined and enable O.S check is equal to zero
     REM So the default value is 1
     REM Or conditions are fuzzy to use in batch file I'd rather prefer to use "AND" conditions
-    if not [!ENABLE_OSCHECK!] == [] if "!ENABLE_OSCHECK!" == "0" (
+    if %ENABLE_OSCHECK%==0 (
       call :Console:Warn "Disabled OsCheck, the software will not run in compatible mode.."
       call :Console:Info "Errors may can occur during process.."
       echo Redirecting..
@@ -429,8 +436,8 @@ REM Show options to be chossen
 
     for /f "tokens=4-5 delims=. " %%i in ('ver') do set VERSION=%%i.%%j
     
-    if "!version!" == "6.3" ( echo Initializing..& timeout 1 >nul& call :Menu )
-    if "!version!" == "6.2" (  echo Initializing..& timeout 1 >nul& call :Menu )
+    if "%version%" == "6.3" ( echo Initializing..& timeout 1 >nul& call :Menu )
+    if "%version%" == "6.2" (  echo Initializing..& timeout 1 >nul& call :Menu )
    :: if "%version%" == "10.0"( echo Initializing..& timeout 1 >nul& call :Menu )
     
     echo Sorry, your operacional system seems not compatible with this software
