@@ -18,7 +18,7 @@ Follow this steps in the development branch to set up:
 -   Press **Enter**
 -   You are done..
 
-**Memo:** If the helloWorld not run properly in this alpha version, not mean that other stuff will not run, but this is the first step to run. If you are having some throuble during this process, please submit a new issue with label named bug so that way could verify if something is wrong 
+**Memo:** If the helloWorld not run properly in this alpha version, not mean that other stuff will not run, but this is the first step to run. If you are having some throuble during this process, please submit a new issue with label named #bug so that way could verify if something is wrong 
 
 ### Other functions
 
