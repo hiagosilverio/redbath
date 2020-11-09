@@ -11,7 +11,7 @@ Follow this steps in the development branch to set up:
 -   Download [redbath-0.2.0.zip](https://github.com/hiagosilverio/redbath/releases/tag/0.2.0) 
 -   Extract the zip with the main folder
 -   Go to the **bin** folder
--   Execute **redbath.bat** with double click
+-   Execute **redbath.bat** 
 -   After it starts
 -   Type **2** to select **List redbath scripts** and press **Enter**
 -   Type **helloWorld** or **helloWorld.bat**
